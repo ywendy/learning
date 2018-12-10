@@ -14,6 +14,7 @@
         <module>learning-concurrent</module>
         <module>learning-jdk8</module>
         <module>learning-sourcecode</module>
+      <module>learning-disruptor</module>
     </modules>
 
     <name>learning</name>
@@ -32,14 +33,20 @@
         <java.version>1.8</java.version>
     </properties>
 
-    <dependencies>
+    <dependencyManagement>
+      <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.16.6</version>
         </dependency>
-    </dependencies>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.11</version>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
