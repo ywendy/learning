@@ -14,6 +14,7 @@
         <module>learning-concurrent</module>
         <module>learning-jdk8</module>
         <module>learning-sourcecode</module>
+      <module>learning-disruptor</module>
     </modules>
 
     <name>learning</name>
