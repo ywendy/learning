@@ -1,9 +1,14 @@
 package com.ypb.sourcecode;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
-
 import java.io.Serializable;
-import java.util.*;
+import java.util.AbstractList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.RandomAccess;
+import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
@@ -53,7 +58,8 @@ public class ArrayList<E> extends AbstractList<E> implements List<E>, RandomAcce
 
     /**
      * 带有初始容量initCapacity的构造方法
-     * - 可能报错，java.lang.OutOfMemoryError：Requested array size exceeds VM limit
+     * - 可能报错，java.lang.OutOfMemoryError：Requested array size exceeds VM limit(尝试分配一个大于JV可以支持的数组而报错)
+     * -
      * 如果initCapacity小于0，抛IllegalArgumentException异常
      * @param initCapacity
      */
@@ -76,7 +82,7 @@ public class ArrayList<E> extends AbstractList<E> implements List<E>, RandomAcce
     public ArrayList(Collection<? extends E> c) {
         elementData = c.toArray();
         if ((size = elementData.length) != 0) {
-            // c.toArray(); 可能不返回对象[], 详细参考java bug编号6260652 //TODO https://www.cnblogs.com/lsf90/p/5366325.html https://blog.csdn.net/GuLu_GuLu_jp/article/details/51456969
+            // c.toArray(); 可能不返回对象[], 详细参考java bug编号6260652 //TODO https://www.cnblogs.com/lsf90/p/5366325.html https://www.cnblogs.com/Hangtutu/p/9066967.html https://blog.csdn.net/GuLu_GuLu_jp/article/details/51456969
             if (elementData.getClass() != Object[].class) {
                 elementData = Arrays.copyOf(elementData, size, Object[].class);
             }
