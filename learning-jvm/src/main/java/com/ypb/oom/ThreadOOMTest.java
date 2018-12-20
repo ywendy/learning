@@ -1,12 +1,12 @@
 package com.ypb.oom;
 
-import lombok.extern.slf4j.Slf4j;
-
+import com.google.common.collect.Lists;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @className ThreadOOMTest
@@ -19,42 +19,50 @@ import java.util.concurrent.TimeUnit;
 public class ThreadOOMTest {
 
     public static void main(String[] args) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:ss:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         int m = 1024 * 1024;
         String name = "oom-thread";
-        new Thread(() -> {
-            List<byte[]> bytes = new ArrayList<>();
-            while (true) {
-                byte[] bs = new byte[m];
-                bytes.add(bs);
 
-                show(format(formatter));
-            }
-        }, name).start();
+	    new Thread(() -> {
+		    List<byte[]> bytes = Lists.newArrayList();
+		    while (true) {
+			    show(format(formatter));
+
+			    bytes.add(new byte[m]);
+
+			    sleep();
+		    }
+	    }, name).start();
 
         name = "not-oom-thread";
         new Thread(()->{
             while (true) {
                 show(format(formatter));
+	            sleep();
             }
         }, name).start();
     }
 
     /**
-     * 控制台输出时间和线程名称，并使当前线程休眠1s
+     * 控制台输出时间和线程名称
      * @param msg
      */
     private static void show(String msg) {
         System.out.println(msg);
-
-        try {
-            TimeUnit.SECONDS.sleep(1L);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    /**
+	/**
+	 * 线程休眠1s
+	 */
+	private static void sleep() {
+		try {
+		    TimeUnit.SECONDS.sleep(1L);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+	}
+
+	/**
      * 格式化输出的信息
      * @param formatter
      * @return
