@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * @className MemoryLeakOOMErrorTest
- * @description 内存泄漏导致的内存溢出
+ * @description 内存泄漏导致的内存溢出(-Xmx256m -Xms256m -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -verbose:gc -Xloggc:E:/gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=E:/dump.hprof)
  * @author yangpengbing
  * @date 17:47 2018/12/23
  * @version 1.0.0
