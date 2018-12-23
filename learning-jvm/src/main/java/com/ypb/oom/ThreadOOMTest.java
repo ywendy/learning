@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @className ThreadOOMTest
- * @description 测试一个线程出现OOM，同进程下的其他线程还能继续运行吗？
+ * @description 测试一个线程出现OOM，同进程下的其他线程还能继续运行吗？(-Xmx32m -Xms32m -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -verbose:gc -Xloggc:E:/gc.log)
  * @author yangpengbing
  * @date 22:12 2018/12/19
  * @version 1.0.0
