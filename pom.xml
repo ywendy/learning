@@ -16,6 +16,7 @@
     <module>learning-sourcecode</module>
     <module>learning-disruptor</module>
     <module>learning-designpattern</module>
+    <module>learning-web</module>
   </modules>
 
   <name>learning</name>
