@@ -17,6 +17,7 @@
     <module>learning-disruptor</module>
     <module>learning-designpattern</module>
     <module>learning-web</module>
+    <module>learning-timer</module>
   </modules>
 
   <name>learning</name>
@@ -74,6 +75,13 @@
       <version>${guava.version}</version>
     </dependency>
     <!--guava end-->
+    <!-- joda-time start -->
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <!-- joda-time end -->
   </dependencies>
 
   <build>
