@@ -18,6 +18,7 @@
     <module>learning-designpattern</module>
     <module>learning-web</module>
     <module>learning-timer</module>
+    <module>learning-datastructure</module>
   </modules>
 
   <name>learning</name>
