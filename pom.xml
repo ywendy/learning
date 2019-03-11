@@ -21,9 +21,6 @@
     <module>learning-spring</module>
   </modules>
 
-  <name>learning</name>
-  <url>http://www.example.com</url>
-
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
