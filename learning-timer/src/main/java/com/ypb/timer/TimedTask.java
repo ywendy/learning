@@ -6,12 +6,11 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * @author yangpengbing
+ * @version V1.0.0
  * @ClassName: TimedTask
  * @Description: 需要延迟的任务
- * @author yangpengbing
  * @date 2019/1/24-12:15
- * @version V1.0.0
- *
  */
 @Slf4j
 @EqualsAndHashCode

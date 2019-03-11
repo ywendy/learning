@@ -3,21 +3,21 @@ package com.ypb.sourcecode;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+
 /**
+ * @author yangpengbing
+ * @version 1.0.0
  * @className ArrayListTest
  * @description 测试ArrayList
- * @author yangpengbing
  * @date 22:33 2018/12/18
- * @version 1.0.0
  */
 @Slf4j
 public class ArrayListTest {
 
 	/**
-	 * 测试创建ArrayList造成OOM的case
-	 * java.lang.OutOfMemoryError: Requested array size exceeds VM limit
+	 * 测试创建ArrayList造成OOM的case java.lang.OutOfMemoryError: Requested array size exceeds VM limit
+	 *
 	 * @see ArrayList
-	 * @throws Exception
 	 */
 	@Test
 	public void testCreateArrayList() throws Exception {
@@ -32,17 +32,16 @@ public class ArrayListTest {
 
 		System.out.println("strs = " + strs);
 	}
-	
+
 	/**
 	 * https://blog.csdn.net/east4ming/article/details/80179704
-	 * @throws Exception
 	 */
 	@Test
 	public void demo() throws Exception {
 		for (int i = 1000; i > 0; i--) {
 			try {
 				int[] arr = new int[Integer.MAX_VALUE - i];
-				System.out.format("Successfully initialized an array with %,d elements .\n", Integer.MAX_VALUE-i);
+				System.out.format("Successfully initialized an array with %,d elements .\n", Integer.MAX_VALUE - i);
 			} catch (Throwable e) {
 				log.debug(e.getMessage(), e);
 			}
@@ -64,55 +63,55 @@ public class ArrayListTest {
 			strs.add(str);
 		}
 	}
-	
-    @Test
-    public void size() throws Exception {
-        List<String> strs = new ArrayList<>();
-        System.out.println(strs.size());
-    }
 
-    @Test
-    public void removeIf() throws Exception {
-    }
+	@Test
+	public void size() throws Exception {
+		List<String> strs = new ArrayList<>();
+		System.out.println(strs.size());
+	}
 
-    @Test
-    public void replaceAll() throws Exception {
-    }
+	@Test
+	public void removeIf() throws Exception {
+	}
 
-    @Test
-    public void sort() throws Exception {
-    }
+	@Test
+	public void replaceAll() throws Exception {
+	}
 
-    @Test
-    public void forEach() throws Exception {
-    }
+	@Test
+	public void sort() throws Exception {
+	}
 
-    @Test
-    public void spliterator() throws Exception {
-    }
+	@Test
+	public void forEach() throws Exception {
+	}
 
-    @Test
-    public void stream() throws Exception {
-    }
+	@Test
+	public void spliterator() throws Exception {
+	}
 
-    @Test
-    public void parallelStream() throws Exception {
-    }
+	@Test
+	public void stream() throws Exception {
+	}
 
-    @Test
-    public void get() throws Exception {
-    }
+	@Test
+	public void parallelStream() throws Exception {
+	}
 
-    @Test
-    public void add() throws Exception {
-    }
+	@Test
+	public void get() throws Exception {
+	}
 
-    @Test
-    public void get1() throws Exception {
-    }
+	@Test
+	public void add() throws Exception {
+	}
 
-    @Test
-    public void set() throws Exception {
-    }
+	@Test
+	public void get1() throws Exception {
+	}
+
+	@Test
+	public void set() throws Exception {
+	}
 
 }

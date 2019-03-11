@@ -6,12 +6,13 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * @className OverThreadLimitOOMErrorTest
- * @description 垃圾回收超时导致的内存溢出(-Xmx32m -Xms32m -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -verbose:gc -Xloggc: E:/gc.log -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=D:/dump/dump.hprof)
- * https://blog.csdn.net/renfufei/article/details/77585294
  * @author yangpengbing
- * @date 22:31 2018/12/23
  * @version 1.0.0
+ * @className OverThreadLimitOOMErrorTest
+ * @description 垃圾回收超时导致的内存溢出(- Xmx32m - Xms32m - XX : + UseConcMarkSweepGC - XX : + PrintGCDetails - XX : + PrintGCDateStamps
+ *- verbose : gc - Xloggc : E : / gc.log - XX : + HeapDumpOnOutOfMemoryError - XX : HeapDumpPath = D : / dump / dump.hprof)
+ * https://blog.csdn.net/renfufei/article/details/77585294
+ * @date 22:31 2018/12/23
  */
 public class OverThreadLimitOOMErrorTest {
 

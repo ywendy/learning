@@ -4,15 +4,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import sun.misc.ProxyGenerator;
-import sun.misc.Resource;
 
 /**
+ * @author yangpengbing
+ * @version V1.0.0
  * @ClassName: FindLoveTest
  * @Description: 测试FindLove方法
- * @author yangpengbing
  * @date 2018/12/14-16:03
- * @version V1.0.0
- *
  */
 public class FindLoveTest {
 

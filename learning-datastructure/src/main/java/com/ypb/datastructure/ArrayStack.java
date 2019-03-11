@@ -3,12 +3,11 @@ package com.ypb.datastructure;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @ClassName: ArrayStack
- * @Description: 栈(使用数组来实现栈，栈先进后出，只能访问栈顶的数据) https://www.cnblogs.com/Kevin-ZhangCG/p/10299861.html
  * @author yangpengbing
- * @date 2019/1/30-11:25
  * @version V1.0.0
- *
+ * @ClassName: ArrayStack
+ * @Description: 栈(使用数组来实现栈 ， 栈先进后出 ， 只能访问栈顶的数据) https://www.cnblogs.com/Kevin-ZhangCG/p/10299861.html
+ * @date 2019/1/30-11:25
  */
 @Slf4j
 public class ArrayStack {
@@ -19,7 +18,6 @@ public class ArrayStack {
 
 	/**
 	 * 创建栈
-	 * @param maxSize
 	 */
 	public ArrayStack(int maxSize) {
 		this.size = maxSize;
@@ -38,7 +36,6 @@ public class ArrayStack {
 
 	/**
 	 * 返回栈顶元素，并移除
-	 * @return
 	 */
 	public long pop() {
 		if (isEmpty()) {
@@ -51,7 +48,6 @@ public class ArrayStack {
 
 	/**
 	 * 返回栈顶元素，不移除
-	 * @return
 	 */
 	public long peak() {
 		if (isEmpty()) {

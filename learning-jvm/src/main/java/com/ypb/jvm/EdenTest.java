@@ -3,12 +3,11 @@ package com.ypb.jvm;
 import lombok.Data;
 
 /**
- * @ClassName: EdenTest
- * @Description: 验证对象有限创建在eden区域(-Xmx10M -Xms10M -XX:+UseConcMarkSweepGC -verbose -XX:+PrintGCDetails)
  * @author yangpengbing
- * @date 2018/12/10-17:24
  * @version V1.0.0
- *
+ * @ClassName: EdenTest
+ * @Description: 验证对象有限创建在eden区域(- Xmx10M - Xms10M - XX : + UseConcMarkSweepGC - verbose - XX : + PrintGCDetails)
+ * @date 2018/12/10-17:24
  */
 public class EdenTest {
 

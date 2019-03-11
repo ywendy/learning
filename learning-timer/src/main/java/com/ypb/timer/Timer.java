@@ -12,12 +12,11 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 /**
+ * @author yangpengbing
+ * @version V1.0.0
  * @ClassName: Timer
  * @Description: 定时器
- * @author yangpengbing
  * @date 2019/1/24-11:22
- * @version V1.0.0
- *
  */
 @Slf4j
 public class Timer {
@@ -45,11 +44,13 @@ public class Timer {
 	private AtomicLong counter = new AtomicLong(0);
 
 	private Timer() {
-		pool = Executors.newFixedThreadPool(100,new ThreadFactoryBuilder().setPriority(10).setNameFormat("worker-pool").build());
-		boosPool = Executors.newFixedThreadPool(1, new ThreadFactoryBuilder().setPriority(10).setNameFormat("boos-pool").build());
+		pool = Executors.newFixedThreadPool(100,
+				new ThreadFactoryBuilder().setPriority(10).setNameFormat("worker-pool").build());
+		boosPool = Executors
+				.newFixedThreadPool(1, new ThreadFactoryBuilder().setPriority(10).setNameFormat("boos-pool").build());
 
 		timingWheel = new TimingWheel(200, 100, System.currentTimeMillis(), delayQueue);
-		boosPool.execute(()->{
+		boosPool.execute(() -> {
 			try {
 				while (true) {
 					if (log.isDebugEnabled()) {
@@ -75,7 +76,6 @@ public class Timer {
 
 	/**
 	 * 推进一下时间轮的指针，并且将delayQueue中的任务取出来重新在扔进去
-	 * @param timeout
 	 */
 	private void advanceClock(int timeout) {
 		try {

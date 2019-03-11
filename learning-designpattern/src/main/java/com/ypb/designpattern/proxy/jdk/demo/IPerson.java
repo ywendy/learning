@@ -1,11 +1,11 @@
 package com.ypb.designpattern.proxy.jdk.demo;
+
 /**
+ * @author yangpengbing
+ * @version V1.0.0
  * @ClassName: IPerson
  * @Description: 定义Person接口
- * @author yangpengbing
  * @date 2018/12/14-11:34
- * @version V1.0.0
- *
  */
 public interface IPerson {
 

@@ -4,12 +4,11 @@ import java.util.concurrent.DelayQueue;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * @author yangpengbing
+ * @version V1.0.0
  * @ClassName: TimingWheel
  * @Description: 时间轮，可以推进时间和添加任务
- * @author yangpengbing
  * @date 2019/1/24-11:48
- * @version V1.0.0
- *
  */
 @Slf4j
 public class TimingWheel {
@@ -51,10 +50,6 @@ public class TimingWheel {
 
 	/**
 	 * 创建时间轮对象
-	 * @param tickMs
-	 * @param wheelSize
-	 * @param currentTimestamp
-	 * @param delayQueue
 	 */
 	public TimingWheel(long tickMs, int wheelSize, long currentTimestamp, DelayQueue<Bucket> delayQueue) {
 		this.tickMs = tickMs;
@@ -71,8 +66,6 @@ public class TimingWheel {
 
 	/**
 	 * 添加任务到时间轮
-	 * @param task
-	 * @return
 	 */
 	public boolean addTask(TimedTask task) {
 		long expireTimestamp = task.getExpireTimestamp();
@@ -119,7 +112,6 @@ public class TimingWheel {
 
 	/**
 	 * 推进下指针
-	 * @param timestamp
 	 */
 	public void advanceClock(long timestamp) {
 
