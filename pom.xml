@@ -19,6 +19,7 @@
     <module>learning-timer</module>
     <module>learning-datastructure</module>
     <module>learning-spring</module>
+    <module>learning-redis</module>
   </modules>
 
   <parent>
@@ -112,6 +113,13 @@
         <version>${org.springframework.version}</version>
       </dependency>
       <!--spring context end-->
+      <!--redisson start-->
+      <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson</artifactId>
+        <version>3.3.2</version>
+      </dependency>
+      <!--redisson end-->
     </dependencies>
   </dependencyManagement>
 
