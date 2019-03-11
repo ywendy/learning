@@ -12,12 +12,11 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 
 /**
+ * @author yangpengbing
+ * @version V1.0.0
  * @ClassName: Bucket
  * @Description: 槽
- * @author yangpengbing
  * @date 2019/1/24-13:21
- * @version V1.0.0
- *
  */
 @Slf4j
 public class Bucket implements Delayed {
@@ -42,7 +41,6 @@ public class Bucket implements Delayed {
 
 	/**
 	 * 获取槽的过期时间
-	 * @return
 	 */
 	public long getExpire() {
 		return expiration.get();
@@ -50,7 +48,6 @@ public class Bucket implements Delayed {
 
 	/**
 	 * 重新分配槽
-	 * @param task
 	 */
 	public synchronized void flush(Consumer<TimedTask> task) {
 		for (TimedTask timedTask : tasks) {
@@ -66,7 +63,6 @@ public class Bucket implements Delayed {
 
 	/**
 	 * 添加任务到槽
-	 * @param task
 	 */
 	public void addTask(TimedTask task) {
 		tasks.offer(task);
@@ -74,8 +70,6 @@ public class Bucket implements Delayed {
 
 	/**
 	 * 设置槽的过期时间
-	 * @param expire
-	 * @return
 	 */
 	public boolean setExpire(long expire) {
 		return expiration.getAndSet(expire) != expire;

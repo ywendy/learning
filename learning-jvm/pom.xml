@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>learning</artifactId>
-        <groupId>com.ypb</groupId>
-        <version>1.0.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <description>学习JVM</description>
-
-    <artifactId>jvm</artifactId>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>learning</artifactId>
+    <groupId>com.ypb</groupId>
     <version>1.0.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <description>学习JVM</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <!--获取jvm参数-->
-        <dependency>
-            <groupId>com.github.dblock</groupId>
-            <artifactId>oshi-core</artifactId>
-            <version>3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.dblock</groupId>
-            <artifactId>oshi-json</artifactId>
-            <version>3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>net.java.dev.jna</groupId>
-            <artifactId>jna-platform</artifactId>
-            <version>4.2.1</version>
-        </dependency>
-    </dependencies>
+  <artifactId>jvm</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+    <!--获取jvm参数-->
+    <dependency>
+      <groupId>com.github.dblock</groupId>
+      <artifactId>oshi-core</artifactId>
+      <version>3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.dblock</groupId>
+      <artifactId>oshi-json</artifactId>
+      <version>3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>jna-platform</artifactId>
+      <version>4.2.1</version>
+    </dependency>
+  </dependencies>
 
 </project>

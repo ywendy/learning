@@ -10,7 +10,8 @@ public class FindLoveTest2 {
 		IPerson person = new BeautifulGirl();
 
 		Class<? extends IPerson> clazz = person.getClass();
-		IPerson proxy = (IPerson) Proxy.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(), new DynamicProxy(person));
+		IPerson proxy = (IPerson) Proxy
+				.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(), new DynamicProxy(person));
 
 		System.out.println(proxy.getClass());
 		proxy.findLove();

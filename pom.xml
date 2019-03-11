@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version= "1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -19,10 +19,8 @@
     <module>learning-timer</module>
     <module>learning-datastructure</module>
     <module>learning-spring</module>
+    <module>learning-redis</module>
   </modules>
-
-  <name>learning</name>
-  <url>http://www.example.com</url>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -132,6 +130,13 @@
         <version>${org.springframework.version}</version>
       </dependency>
       <!--spring web end-->
+      <!--redisson start-->
+      <dependency>
+        <groupId>org.redisson</groupId>
+        <artifactId>redisson</artifactId>
+        <version>3.3.2</version>
+      </dependency>
+      <!--redisson end-->
     </dependencies>
   </dependencyManagement>
 

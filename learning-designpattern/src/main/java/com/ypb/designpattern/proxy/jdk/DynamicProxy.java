@@ -5,12 +5,11 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
+ * @author yangpengbing
+ * @version V1.0.0
  * @ClassName: DynamicProxy
  * @Description: 动态代理对象
- * @author yangpengbing
  * @date 2018/12/14-17:20
- * @version V1.0.0
- *
  */
 public class DynamicProxy implements InvocationHandler {
 
