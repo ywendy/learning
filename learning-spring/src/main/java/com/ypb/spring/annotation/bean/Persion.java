@@ -19,5 +19,5 @@ import lombok.NoArgsConstructor;
 public class Persion {
 
     private String name;
-    private String age;
+    private int age;
 }

@@ -1,7 +1,6 @@
 package com.ypb.spring.annotation;
 
-import com.ypb.spring.annotation.bean.Persion;
-
+import java.util.stream.Stream;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -14,7 +13,15 @@ public class SpringAnnotationMain {
 
         ApplicationContext ctx = new ClassPathXmlApplicationContext(configLocation);
 
-        Persion persion = (Persion) ctx.getBean(beanName);
-        System.out.println("persion = " + persion);
+	    printAllBeans(ctx);
     }
+
+	/**
+	 * 输出IOC容器中的所有组件
+	 * @param ctx
+	 */
+	private static void printAllBeans(ApplicationContext ctx) {
+		String[] names = ctx.getBeanDefinitionNames();
+		Stream.of(names).forEach(System.out::println);
+	}
 }
