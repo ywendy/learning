@@ -17,7 +17,7 @@ public class ColorFactoryBean implements FactoryBean {
 	 */
 	@Override
 	public Color getObject() throws Exception {
-		System.out.println("给容器中添加Color...");
+		System.out.println("给容器中添加Color...111...");
 
 		return new Color();
 	}
@@ -35,6 +35,6 @@ public class ColorFactoryBean implements FactoryBean {
 	 */
 	@Override
 	public boolean isSingleton() {
-		return false;
+		return true;
 	}
 }

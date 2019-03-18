@@ -1,4 +1,4 @@
-package com.ypb.spring.annotation;
+package com.ypb.spring.annotation.config;
 
 import com.ypb.spring.annotation.bean.Persion;
 import com.ypb.spring.annotation.config.MainConfig;
@@ -25,6 +25,8 @@ public class IOCTest {
 
 		Object bean1 = ctx.getBean("colorFactoryBean");
 		Object bean2 = ctx.getBean("colorFactoryBean");
+		Object bean = ctx.getBean("&colorFactoryBean");
+		Object bean3 = ctx.getBean("&persion01");
 
 		System.out.println("bean.getClass() = " + bean2.getClass());
 

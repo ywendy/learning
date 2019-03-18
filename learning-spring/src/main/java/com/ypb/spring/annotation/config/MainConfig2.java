@@ -22,6 +22,12 @@ import org.springframework.context.annotation.Scope;
 @Import({Red.class, CustomImportSelector.class, CustomImportBeanDefinitionRegistrar.class})
 public class MainConfig2 {
 
+	/**
+	 * 使用Spring提供的FactoryBean注册组件
+	 * 1. 默认返回的是getObject方法创建的对象，不是FactoryBean。
+	 * 2. 如果想获取FactoryBean对象本身，需要在获取的id前添加&
+	 * @return
+	 */
 	@Bean
 	public FactoryBean colorFactoryBean() {
 		System.out.println("给容器中添加FactoryBean...");

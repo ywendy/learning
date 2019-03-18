@@ -71,3 +71,7 @@ FilterType.CUSTOM: 使用自定义规则
   需要注册的组件不能是接口，必须是类(接口的实现类)
 
 - FactoryBean
+
+  使用Spring提供的FactoryBean(工厂Bean)
+  1. 默认获取到的是工厂bean调用Object创建的对象，不是FactoryBean。
+  2. 如果想获取工厂Bean本身，需要给id前面加一个&，$factoryBean。

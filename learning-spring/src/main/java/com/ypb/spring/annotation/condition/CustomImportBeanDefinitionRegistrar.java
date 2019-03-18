@@ -6,7 +6,14 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
-
+/**
+ * @ClassName: CustomImportBeanDefinitionRegistrar
+ * @Description: 手动将bean定义注册到ioc容器中
+ * @author yangpengbing
+ * @date 2019/3/18-10:53
+ * @version V1.0.0
+ *
+ */
 public class CustomImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
 
 	/**
