@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * @className Persion
@@ -18,6 +19,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Persion {
 
+	@Value("${persion.name}")
     private String name;
+	@Value("#{32 - 1}")
     private int age;
+	@Value("happy518")
+	private String nickName;
 }
