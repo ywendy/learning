@@ -11,7 +11,14 @@
   <modelVersion>4.0.0</modelVersion>
   <description>学习JDK的JUC工具类</description>
 
-  <artifactId>concurrent</artifactId>
+  <artifactId>concurrency</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>

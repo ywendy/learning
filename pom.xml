@@ -10,7 +10,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <modules>
     <module>learning-jvm</module>
-    <module>learning-concurrent</module>
+    <module>learning-concurrency</module>
     <module>learning-jdk8</module>
     <module>learning-sourcecode</module>
     <module>learning-disruptor</module>
