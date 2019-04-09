@@ -106,26 +106,5 @@ public class ThreadInterrupt {
 //	    1. 前者是静态方法，调用者current Thread。而后者是普通方法，调用者是this。
 //		2. 它们其实都调用了java中的native方法isInterrupted(boolean ClearInterrupted); 不同的是前者传递是true，后置是false。
 //			含义就是：前者将清除线程的interrupt state, 调用后者线程的interrupt status不受影响。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
