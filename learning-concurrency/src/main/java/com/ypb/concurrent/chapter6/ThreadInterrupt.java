@@ -106,5 +106,17 @@ public class ThreadInterrupt {
 //	    1. 前者是静态方法，调用者current Thread。而后者是普通方法，调用者是this。
 //		2. 它们其实都调用了java中的native方法isInterrupted(boolean ClearInterrupted); 不同的是前者传递是true，后置是false。
 //			含义就是：前者将清除线程的interrupt state, 调用后者线程的interrupt status不受影响。
+
+//	总结：
+//  	1. 调用interrupt()方法不会中断一个正在运行的线程
+//			为什么呢？ 从interrupt的源码中可以看到，线程的blocker字段(也就是interrupt status)默认是null。 调用interrupt()方法时，只运行了②，并没有
+//					  进入if语句，所有没有真正的执行中断的代码b.interrupt()方法。
+//		2. 若调用sleep()方法而是线程处于阻塞状态，这时调用interrupt()方法，会抛出InterruptedException，从而使线程提前结束阻塞状态，退出阻塞代码， 见TestInterrupt
+//			为什么呢？ 调用线程的sleep()方法， 线程interrupt status将被设置，也就是blocker字段不为null， 默认b为null，但是调用sleep时，运行了②，设置interrupt status也就是
+//					b不为null，执行了if语句，并清除interrupt status，调用真正的打断语句，b.interrupt().
+//			从源码可以看出，代码中捕获的InterruptException异常其实是interrupt()抛出的，而不是sleep()抛出的。
+
+
+//	 调用interrupt()，其本质只是设置线程的中断标志，将中断标注设置为true, 并且根据线程的状态觉得是否抛异常。
 }
 
