@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter1;
+package com.ypb.concurrent.stage1.chapter1;
 /**
  * @className MyThread2
  * @description 实现Runnable接口，创建线程

@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter1;
+package com.ypb.concurrent.stage1.chapter1;
 
 import lombok.extern.slf4j.Slf4j;
 

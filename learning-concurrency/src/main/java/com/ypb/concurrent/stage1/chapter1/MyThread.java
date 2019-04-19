@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter1;
+package com.ypb.concurrent.stage1.chapter1;
 /**
  * @className MyThread
  * @description 继承Thread类的方式，创建线程

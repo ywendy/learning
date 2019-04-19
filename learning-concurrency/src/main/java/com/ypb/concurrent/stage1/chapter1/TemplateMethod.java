@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter1;
+package com.ypb.concurrent.stage1.chapter1;
 /**
  * @className TemplateMethod
  * @description 模版方法
