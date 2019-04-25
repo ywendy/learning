@@ -10,21 +10,26 @@ public class SingletonObject7 {
 
     private SingletonObject7(){}
 
-    private enum Singleton {
-        INSTANCE;
+	private enum Singleton {
+		INSTANCE,
+		;
 
-        private final SingletonObject7 instance;
+		private final SingletonObject7 instance;
 
-        Singleton(){
-            instance = new SingletonObject7();
-        }
+		Singleton() {
+			instance = new SingletonObject7();
+		}
 
-        public SingletonObject7 getInstance() {
-            return instance;
-        }
-    }
+		public SingletonObject7 getInstance() {
+			return instance;
+		}
+	}
 
     public static SingletonObject7 getInstance() {
         return Singleton.INSTANCE.getInstance();
     }
+
+    /**************************** 学习笔记(2019年4月25日) ******************************/
+//    枚举类编译后是默认是final class，不允许继承， 枚举类本身也不能继承其他的类，因为枚举类默认继承Enum类，java是单继承， 但是是可以实现接口的
+//	  枚举类的构造方法只能用private修饰符修饰
 }
