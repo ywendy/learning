@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter2;
+package com.ypb.concurrent.stage1.chapter2;
 /**
  * @className Bank
  * @description 银行大厅
