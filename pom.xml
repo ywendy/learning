@@ -20,6 +20,7 @@
     <module>learning-datastructure</module>
     <module>learning-spring</module>
     <module>learning-redis</module>
+    <module>learning-interview</module>
   </modules>
 
   <parent>
