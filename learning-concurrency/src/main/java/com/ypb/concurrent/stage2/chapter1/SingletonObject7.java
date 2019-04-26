@@ -11,8 +11,7 @@ public class SingletonObject7 {
     private SingletonObject7(){}
 
 	private enum Singleton {
-		INSTANCE,
-		;
+		INSTANCE;
 
 		private final SingletonObject7 instance;
 
