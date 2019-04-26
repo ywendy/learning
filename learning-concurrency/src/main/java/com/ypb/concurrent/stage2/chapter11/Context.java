@@ -1,4 +1,4 @@
-package com.ypb.concurrent.stage2.chatper11;
+package com.ypb.concurrent.stage2.chapter11;
 
 import lombok.Data;
 
