@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter7;
+package com.ypb.concurrent.stage1.chapter7;
 
 public class SynchronizedDemo {
 

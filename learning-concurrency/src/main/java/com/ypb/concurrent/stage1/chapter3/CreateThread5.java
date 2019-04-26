@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter3;
+package com.ypb.concurrent.stage1.chapter3;
 
 public class CreateThread5 {
 

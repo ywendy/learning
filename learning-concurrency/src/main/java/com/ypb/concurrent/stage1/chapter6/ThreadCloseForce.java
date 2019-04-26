@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter6;
+package com.ypb.concurrent.stage1.chapter6;
 
 import com.google.common.base.Stopwatch;
 import java.util.concurrent.TimeUnit;

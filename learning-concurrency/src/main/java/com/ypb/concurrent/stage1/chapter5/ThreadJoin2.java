@@ -1,7 +1,5 @@
-package com.ypb.concurrent.chapter5;
+package com.ypb.concurrent.stage1.chapter5;
 
-import java.util.Optional;
-import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 
 /**

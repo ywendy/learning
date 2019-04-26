@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter4;
+package com.ypb.concurrent.stage1.chapter4;
 
 import java.util.Optional;
 import java.util.stream.IntStream;

@@ -1,4 +1,4 @@
-package com.ypb.concurrent.chapter7;
+package com.ypb.concurrent.stage1.chapter7;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,6 +57,7 @@ public class SynchronizedStaticTest {
 //	_owner, 他指向持有ObjectMonitor对象的线程，当多个线程访问同一个代码是，会先存放到_EntityList集合中，接下来当线程获取到monitor时，就会吧_owner变量设置为当前线程，
 //	同时_count变量+1，如果线程调用wait方法，就会释放当前持有的monitor，那么_owner变量就会被设置为null，同时_count-1，并且该线程进入_WaitSet集合中，等待下一次被唤醒。
 
+//	对象监视器监视的是共享资源， 存在多个线程同时访问的资源，一般把它作为对象锁
 }
 
 @Slf4j
