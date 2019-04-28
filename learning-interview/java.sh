@@ -1,0 +1,1 @@
+java -javaagent:./target/test.jar -XX:+UseCompressedOops -classpath ./target/test.jar com.ypb.codetest.SizeOfObjectTest

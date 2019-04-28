@@ -29,6 +29,11 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.apache.lucene</groupId>
+      <artifactId>lucene-core</artifactId>
+      <version>7.7.1</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -55,6 +60,17 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <finalName>test</finalName>
+            <archive>
+              <manifestEntries>
+                <Premain-class>com.ypb.codetest.SizeOfObject</Premain-class>
+                <Boot-Class-Path></Boot-Class-Path>
+                <Can-Redefine-Classes>false</Can-Redefine-Classes>
+              </manifestEntries>
+              <addMavenDescriptor>false</addMavenDescriptor>
+            </archive>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
