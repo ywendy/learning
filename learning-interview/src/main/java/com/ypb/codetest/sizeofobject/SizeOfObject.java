@@ -1,4 +1,4 @@
-package com.ypb.codetest;
+package com.ypb.codetest.sizeofobject;
 
 import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Array;

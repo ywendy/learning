@@ -1,4 +1,4 @@
-package com.ypb.codetest;
+package com.ypb.codetest.sizeofobject;
 
 import java.lang.reflect.Field;
 import lombok.extern.slf4j.Slf4j;

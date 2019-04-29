@@ -1,4 +1,4 @@
-package com.ypb.codetest;
+package com.ypb.codetest.sizeofobject;
 
 import java.io.File;
 
@@ -126,6 +126,11 @@ public class SizeOfObjectTest {
 		int eb;
 	}
 
+	/**
+	 * java -javaagent:./target/test.jar -XX:-UseCompressedOops -classpath ./target/test.jar com.ypb.codetest.sizeofobject.SizeOfObjectTest
+	 * @param args
+	 * @throws IllegalAccessException
+	 */
 	public static void main(String[] args) throws IllegalAccessException {
 //		C c = new C();
 //		System.out.println("RamUsageEstimator.shallowSizeOf(new C()) = " + RamUsageEstimator.shallowSizeOf(c));
@@ -222,5 +227,11 @@ public class SizeOfObjectTest {
 //		1. 本身占用的大小，对象中除了基本类型之外，其他类型都按照引用类型来计算，不要计算引用中的对象的大小
 //	    2. 总空间占用的大小，要计算对象中每一个对象的大小，引用中的对象也需要计算，在累加活动总空间。
 
-//	对象本身的大小(https://www.cnblogs.com/magialmoon/p/3757767.html)
+//	对象本身的大小
+//	    直接计算当前对象占用空间大小，包括当前类以及父类的基本类型实例字段大小，引用类型实例字段大小，实例基本类型数组大小总占用空间，实例引用类型数组本身占用的大小，
+//	    但不包括父类继承下来的h饿当前类声明的实例引用的对象本身的大小，实例引用数组引用的对象本身的大小
+
+//	当前对象占用的空间总大小
+//	    递归计算当前对象占用空间总大小，包括当前类和父类的实例字段大小以及实字段引用对象大小
+//		递归计算复合对象占用的内存的时候需要注意的是：对齐填充是以每个对象为单位进行的 https://images0.cnblogs.com/i/288950/201405/281956463229130.png
 }

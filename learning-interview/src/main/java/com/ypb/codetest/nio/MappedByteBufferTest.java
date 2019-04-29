@@ -1,4 +1,4 @@
-package com.ypb.codetest;
+package com.ypb.codetest.nio;
 
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -21,7 +21,7 @@ public class MappedByteBufferTest {
 
 		try (
 				FileChannel channel = FileChannel
-						.open(Paths.get("D:\\test1.txt"), StandardOpenOption.READ, StandardOpenOption.WRITE);
+						.open(Paths.get("D:\\test1.txt"), StandardOpenOption.READ, StandardOpenOption.WRITE)
 		) {
 			MappedByteBuffer buffer = channel.map(MapMode.READ_WRITE, 0, length);
 			for (int i = 0; i < length; i++) {
