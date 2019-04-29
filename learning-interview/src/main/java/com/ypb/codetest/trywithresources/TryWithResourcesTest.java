@@ -17,11 +17,22 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class TryWithResourcesTest {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		String filePath = "E:\\workspace\\banner.txt";
 
 		printFile(filePath);
 		printFileJava7(filePath);
+
+		customAutoClosable();
+	}
+
+	/**
+	 * 自定义类型，实现自动关闭
+	 */
+	private static void customAutoClosable() throws Exception {
+		try (CustomAutoClosable cac = new CustomAutoClosable()){
+			cac.doIt();
+		}
 	}
 
 	private static void printFile(String filePath) throws IOException {
@@ -53,6 +64,18 @@ public class TryWithResourcesTest {
 			}
 		} catch (Exception e) {
 			log.debug(e.getMessage(), e);
+		}
+	}
+
+	private static class CustomAutoClosable implements AutoCloseable {
+
+		public void doIt(){
+			System.out.println("CustomAutoClosable doing it!");
+		}
+
+		@Override
+		public void close() throws Exception {
+			System.out.println("CustomAutoClosable closed!");
 		}
 	}
 }
