@@ -73,7 +73,6 @@ public class SizeOfObjectTest {
 				bs[i] = new B();
 			}
 		}
-
 	}
 
 	/**
@@ -131,12 +130,10 @@ public class SizeOfObjectTest {
 //		C c = new C();
 //		System.out.println("RamUsageEstimator.shallowSizeOf(new C()) = " + RamUsageEstimator.shallowSizeOf(c));
 
-
 		System.out.println("SizeOfObject.sizeOf(new C()) = " + SizeOfObject.sizeOf(new C()));
 		System.out.println("SizeOfObject.sizeOf(new C1()) = " + SizeOfObject.sizeOf(new C1()));
 		System.out.println("SizeOfObject.sizeOf(new C2()) = " + SizeOfObject.sizeOf(new C2()));
 		System.out.println("SizeOfObject.sizeOf(new C3()) = " + SizeOfObject.sizeOf(new C3()));
-
 
 		System.out.println(new File("./target/classes").getAbsolutePath());
 		System.out.println("SizeOfObject.sizeOf(new Object()) = " + SizeOfObject.sizeOf(new Object()));
@@ -151,7 +148,6 @@ public class SizeOfObjectTest {
 
 		System.out.println("SizeOfObject.sizeOf(new D()) = " + SizeOfObject.sizeOf(new D()));
 		System.out.println("SizeOfObject.fullSizeOf(new D()) = " + SizeOfObject.fullSizeOf(new D()));
-
 
 //		-XX:-UseCompressedOops: sizeOf(new int[3]) = 24(header) + (4*3)(instance data) = 24 + 12 + 4(padding) = 40
 //		-XX:+UseCompressedOops: sizeOf(new int[3]) = 16(header) + (4*3)(instance data) = 16 + 12 + 4(padding) = 32
