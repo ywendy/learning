@@ -12,7 +12,7 @@ public class MakingStringRequest extends MethodRequest {
     }
 
     @Override
-    public void execuet() {
+    public void execute() {
         Result<String> result = servant.makeString(count, fillChar);
 
         futureResult.setResut(result);

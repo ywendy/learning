@@ -10,7 +10,7 @@ public class DisplayStringRequest extends MethodRequest {
     }
 
     @Override
-    public void execuet() {
+    public void execute() {
         servant.displayString(text);
     }
 }

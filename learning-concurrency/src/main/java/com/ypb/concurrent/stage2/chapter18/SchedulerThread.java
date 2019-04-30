@@ -15,7 +15,7 @@ public class SchedulerThread extends Thread {
     @Override
     public void run() {
         while (true) {
-            queue.take().execuet();
+            queue.take().execute();
         }
     }
 }
