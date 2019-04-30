@@ -2,6 +2,7 @@ package com.ypb.concurrent.stage2.chapter18;
 
 import java.math.BigDecimal;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.CharUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
 @Slf4j
@@ -36,7 +37,7 @@ public class MarkingStringClientRunnable extends AbstractClientRunnable {
 	}
 
 	private char initFillChar(int index) {
-		return RandomStringUtils.randomAlphanumeric(index).charAt(BigDecimal.ZERO.intValue());
+		return CharUtils.toChar(RandomStringUtils.randomAlphanumeric(index));
 	}
 
 	private Result<String> markingString(int count, char fillChar) {
