@@ -13,7 +13,7 @@ public class DisplayStringClientRunnable extends AbstractClientRunnable {
 	@Override
 	protected void doRun() {
 		try {
-			for (int i = 0; true; i++) {
+			while (true) {
 				String value = (String) queue.take().getResultValue();
 				String text = Thread.currentThread().getName() + ": --> " + value;
 

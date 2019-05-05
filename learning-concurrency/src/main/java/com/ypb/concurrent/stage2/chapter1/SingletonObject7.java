@@ -19,6 +19,10 @@ public class SingletonObject7 {
 			instance = new SingletonObject7();
 		}
 
+		/**
+		 * 使用枚举获取到一个对象实例，不需要使用static修饰
+		 * @return
+		 */
 		public SingletonObject7 getInstance() {
 			return instance;
 		}
