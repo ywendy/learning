@@ -11,8 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author yangpengbing
  * @version 1.0.0
  * @className ThreadOOMTest
- * @description 测试一个线程出现OOM，同进程下的其他线程还能继续运行吗？(-Xmx32m -Xms32m -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails
- * -XX:+PrintGCDateStamps -verbose:gc -Xloggc:E:/gc.log)
+ * @description 测试一个线程出现OOM，同进程下的其他线程还能继续运行吗？(-Xmx32m -Xms32m -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -verbose:gc -Xloggc:E:/gc.log)
  * @date 22:12 2018/12/19
  */
 @Slf4j

@@ -7,8 +7,7 @@ import java.util.List;
  * @author yangpengbing
  * @version 1.0.0
  * @className HeapOOMErrorTest
- * @description java堆内存内存溢出测试(- Xmx20m - Xms20m - XX : + UseConcMarkSweepGC - XX : + PrintGCDetails - verbose : gc
- *- XX : + PrintGCDateStamps - Xloggc : E : / gc.log)
+ * @description java堆内存内存溢出测试(-Xmx20m -Xms20m -XX:+UseConcMarkSweepGC -XX:+PrintGCDetails -verbose:gc -XX:+PrintGCDateStamps -Xloggc:E:/gc.log)
  * @date 22:50 2018/12/20
  */
 public class HeapOOMErrorTest {
