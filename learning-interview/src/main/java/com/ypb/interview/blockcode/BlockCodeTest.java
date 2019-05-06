@@ -9,9 +9,22 @@ package com.ypb.interview.blockcode;
  */
 public class BlockCodeTest {
 
+	public static int x = 10;
+
 	static {
 		printConsole("main方法中的静态代码块");
+
+		System.out.println("x = " + x);
+		x = 10 + 1;
+
+		// 可以对静态代码块之后的变量赋值，但是不能访问
+		y = 20 + 1;
+
+		// Illegal forward reference
+//		System.out.println("y = " + y);
 	}
+
+	private static int y = 20;
 
 	public static void main(String[] args) {
 		{
@@ -52,5 +65,7 @@ public class BlockCodeTest {
 //	接口类的<clinit>方法，是不先调用父类的<clinit>方法的。 接口的实现类也一样不会先执行父类(接口)的<clinit>方法。只有到静态变量被使用的时候才会被初始化
 
 //	jvm会保证一个类被加载一次，多个线程加载同一个类，锁，其他的等待
+
+//	静态代码块中只能访问定义在静态代码块之前的变量，定义在它之后的变量只能赋值，不能访问
 }
 
