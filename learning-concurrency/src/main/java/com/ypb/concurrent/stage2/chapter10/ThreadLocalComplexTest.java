@@ -2,11 +2,10 @@ package com.ypb.concurrent.stage2.chapter10;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ThreadLockComplexTest {
+public class ThreadLocalComplexTest {
 
     private static final ThreadLocal<String> THREAD_LOCAL = new ThreadLocal<String>() {
 
