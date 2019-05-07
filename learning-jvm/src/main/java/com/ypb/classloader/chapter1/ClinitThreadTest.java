@@ -1,4 +1,4 @@
-package com.ypb.classloader;
+package com.ypb.classloader.chapter1;
 /**
  * @className ClinitThreadTest
  * @description 验证jvm保证类只能被加载一次
