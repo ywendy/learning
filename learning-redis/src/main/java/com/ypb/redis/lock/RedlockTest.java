@@ -1,4 +1,4 @@
-package com.ypb.redis;
+package com.ypb.redis.lock;
 
 import com.google.common.collect.Lists;
 import java.util.List;

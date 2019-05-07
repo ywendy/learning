@@ -21,6 +21,7 @@
     <module>learning-spring</module>
     <module>learning-redis</module>
     <module>learning-interview</module>
+    <module>learning-easyexcel</module>
   </modules>
 
   <parent>
@@ -110,6 +111,11 @@
         <version>3.8.1</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-text</artifactId>
+        <version>1.6</version>
+      </dependency>
+      <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
@@ -152,6 +158,12 @@
         <groupId>javax.servlet</groupId>
         <artifactId>servlet-api</artifactId>
         <version>3.0-alpha-1</version>
+      </dependency>
+      <!--spring data redis-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+        <version>1.5.18.RELEASE</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
