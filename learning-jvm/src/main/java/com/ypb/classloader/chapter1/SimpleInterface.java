@@ -1,4 +1,4 @@
-package com.ypb.classloader;
+package com.ypb.classloader.chapter1;
 
 import java.util.Random;
 
