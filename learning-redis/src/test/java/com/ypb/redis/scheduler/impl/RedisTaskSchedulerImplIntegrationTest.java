@@ -1,7 +1,6 @@
 package com.ypb.redis.scheduler.impl;
 
 import com.ypb.redis.RedisApplicationMain;
-import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -28,11 +27,11 @@ public class RedisTaskSchedulerImplIntegrationTest {
 	@Autowired
 	private RedisTemplate redisTemplate;
 	private CountDownLatch latch;
-	
-	public static final Random random = new Random(System.currentTimeMillis());
+
+	private static final Random random = new Random(System.currentTimeMillis());
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp(){
 		latch = new CountDownLatch(2);
 	}
 
@@ -46,6 +45,10 @@ public class RedisTaskSchedulerImplIntegrationTest {
 		scheduler.schedule(taskID, calendar);
 	}
 
+	/**
+	 * 使用CountDownLatch执行
+	 * @throws InterruptedException
+	 */
 	@Test
 	public void multiThreadSchedule() throws InterruptedException {
 		String dateTimeStr = "20180508 14:50";
