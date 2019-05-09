@@ -1,6 +1,7 @@
 package com.ypb.redis.scheduler.impl;
 
 import com.google.common.collect.Maps;
+import com.ypb.redis.scheduler.Clock;
 import com.ypb.redis.scheduler.RedisTaskScheduler;
 import com.ypb.redis.scheduler.TaskTriggerListener;
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.util.Calendar;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import lombok.Setter;
@@ -16,7 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.RedisConnectionFailureException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -41,9 +42,10 @@ public class RedisTaskSchedulerImpl implements RedisTaskScheduler {
 	@Setter
 	private int pollingDelayMillis = 500;
 	private String scheduleName = DEFAULT_SCHEDULER_NAME;
+	private static final AtomicLong al = new AtomicLong();
 
 	@PostConstruct
-	public void RedisTaskSchedulerImpl() {
+	public void initialize() {
 		pollingThread = new PollingThread(scheduleName);
 		clock = new StandardClock();
 
@@ -89,24 +91,31 @@ public class RedisTaskSchedulerImpl implements RedisTaskScheduler {
 		}
 
 		getzSetOperations().add(keyForScheduler(), taskID, trigger.getTimeInMillis());
+		al.decrementAndGet();
 	}
 
 	private ZSetOperations getzSetOperations() {
 		return redisTemplate.opsForZSet();
 	}
 
-	private String keyForScheduler() {
+	public String keyForScheduler() {
 		return String.format(SCHEDULE_KEY, DEFAULT_SCHEDULER_NAME);
 	}
 
 	@Override
 	public void unscheduleAllTasks() {
 		redisTemplate.delete(keyForScheduler());
+		al.set(BigDecimal.ZERO.longValue());
 	}
 
 	@Override
 	public void unscheduleTask(String taskID) {
 		getzSetOperations().remove(keyForScheduler(), taskID);
+		al.decrementAndGet();
+	}
+
+	public Long getTaskSize() {
+		return al.get();
 	}
 
 	private class PollingThread extends Thread {
@@ -140,7 +149,7 @@ public class RedisTaskSchedulerImpl implements RedisTaskScheduler {
 
 				log.error(StringSubstitutor.replace(template, map));
 			} else {
-				log.warn("[{}] redis scheduler stop.", scheduleName);
+				log.warn("[{}] redis scheduler stop. stopRequested {}, numRetriesAttempted {}", scheduleName, stopRequested, numRetriesAttempted);
 			}
 		}
 
@@ -156,7 +165,7 @@ public class RedisTaskSchedulerImpl implements RedisTaskScheduler {
 			} catch (RedisConnectionFailureException e) {
 				incrementRetriesAttemptsCount();
 
-				log.warn("connection failure during scheduler polling (attempt ()/())", numRetriesAttempted, maxRetriesOnConnectionFailure);
+				log.warn("connection failure during scheduler polling (attempt {}/{})", numRetriesAttempted, maxRetriesOnConnectionFailure);
 			}
 		}
 
@@ -189,19 +198,18 @@ public class RedisTaskSchedulerImpl implements RedisTaskScheduler {
 				if (StringUtils.isBlank(task)) {
 					operations.unwatch();
 				} else {
-					operations.multi();
-
-					operations.opsForZSet().remove(key, task);
-					boolean success = operations.exec() != null;
+					long count = operations.opsForZSet().remove(key, task);
+					boolean success = count == BigDecimal.ONE.longValue();
 
 					Map<String, Object> map = initMap(task);
 					String template = "[${scheduleName}] triggering execution of task [${task}]";
 
 					if (success) {
-						log.info(StringSubstitutor.replace(template, map));
 						tryTaskExecution(task);
+						al.decrementAndGet();
 
 						taskWasTriggered = true;
+						log.info(StringSubstitutor.replace(template, map));
 					} else {
 						template = "[${scheduleName}] Race condition detected for triggering of task [${task}]. The task has probably been triggered by another instance of this application.";
 
@@ -211,21 +219,21 @@ public class RedisTaskSchedulerImpl implements RedisTaskScheduler {
 
 				return taskWasTriggered;
 			}
-
-			private Map<String, Object> initMap(String task) {
-				Map<String, Object> map = Maps.newHashMapWithExpectedSize(2);
-				map.put("scheduleName", scheduleName);
-				map.put("task", task);
-				return map;
-			}
 		});
+	}
+
+	private Map<String, Object> initMap(String task) {
+		Map<String, Object> map = Maps.newHashMapWithExpectedSize(2);
+		map.put("scheduleName", scheduleName);
+		map.put("task", task);
+		return map;
 	}
 
 	private void tryTaskExecution(String task) {
 		try {
 			listener.taskTriggered(task);
 		} catch (Exception e) {
-			log.debug("[{}] Error during execution of task [{}] exception [{}]", scheduleName, task, e);
+			log.debug("[{}] error during execution of task [{}] exception [{}]", scheduleName, task, e.toString());
 		}
 	}
 
