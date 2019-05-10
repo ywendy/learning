@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import lombok.Getter;
 import lombok.Setter;
 
 /**
@@ -16,11 +17,12 @@ import lombok.Setter;
  */
 public class MyClassLoader extends ClassLoader {
 
-    public static final String DEFAULT_DIR = "E:\\temp\\customclassloader\\";
+    public static final String DEFAULT_DIR = "E:\\temp\\customclassloader\\classloader1\\";
 
     @Setter
     private String dir = DEFAULT_DIR;
 
+    @Getter
     private String classLoaderName;
 
     public MyClassLoader() {
