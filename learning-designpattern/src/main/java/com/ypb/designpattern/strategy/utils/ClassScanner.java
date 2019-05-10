@@ -14,6 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternUtils;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
@@ -30,8 +31,8 @@ public final class ClassScanner implements ResourceLoaderAware {
 	private final List<TypeFilter> includeFilters = Lists.newLinkedList();
 	private final List<TypeFilter> excludeFilters = Lists.newLinkedList();
 
-	private final ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-	private final MetadataReaderFactory factory = new CachingMetadataReaderFactory(this.resolver);
+	private ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+	private MetadataReaderFactory factory = new CachingMetadataReaderFactory(this.resolver);
 
 	@SafeVarargs
 	public static Set<Class<?>> scan(String basePackages, Class<? extends Annotation>... annotions) {
@@ -118,6 +119,7 @@ public final class ClassScanner implements ResourceLoaderAware {
 
 	@Override
 	public void setResourceLoader(ResourceLoader resourceLoader) {
-
+		this.resolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
+		this.factory = new CachingMetadataReaderFactory(resourceLoader);
 	}
 }
