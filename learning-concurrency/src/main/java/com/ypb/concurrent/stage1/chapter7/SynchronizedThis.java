@@ -57,4 +57,7 @@ public class SynchronizedThis {
 
 	/**************************** 学习笔记(2019年4月10日) ******************************/
 //	wait和sleep方法，sleep方法是不释放对象锁的，wait方法释放对象锁
+//	sleep方法是Thread类的方法，wait是Object类的方法
+//	sleep方法是不需要被唤醒的，而wait方法是需要被唤醒的， 需要需要用while循环
+//	sleep方法是不需要object monitor，而wait方法需要object monitor的。并且保存在wait set队列中
 }
