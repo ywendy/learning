@@ -1,6 +1,6 @@
 package com.ypb.redis.scheduler.impl;
 
-import com.ypb.redis.RedisApplicationMain;
+import com.ypb.CacheApplicationMain;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -16,7 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RedisApplicationMain.class)
+@SpringBootTest(classes = CacheApplicationMain.class)
 public class RedisTaskSchedulerImplIntegrationTest {
 
 	@Autowired

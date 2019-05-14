@@ -1,12 +1,12 @@
-package com.ypb.redis;
+package com.ypb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RedisApplicationMain {
+public class CacheApplicationMain {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RedisApplicationMain.class, args);
+		SpringApplication.run(CacheApplicationMain.class, args);
 	}
 }
