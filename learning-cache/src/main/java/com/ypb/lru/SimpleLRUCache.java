@@ -58,4 +58,9 @@ public class SimpleLRUCache<K, V> implements LRUCache<K, V> {
 	public synchronized Collection<?> getAll() {
 		return map.entrySet();
 	}
+
+	/**************************** 学习笔记(2019年5月16日) ******************************/
+//	TreeMap和LinkedHashMap都是有序的，HashMap是无序的，
+//	LinkedHashMap是基于元素进入集合地顺序或者被访问的先后顺序进行排序
+//	TreeMap是基于元素的固有顺序(由Comparator或者Comparable确定)，是根据元素的key进行排序
 }
