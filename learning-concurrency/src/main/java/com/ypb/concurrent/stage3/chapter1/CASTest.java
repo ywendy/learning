@@ -140,6 +140,10 @@ public class CASTest {
 
 //    什么是unsafe呢？Java不像c或者c++那样可以直接访问底层操作系统，但是JVM为我们留个后门，这个后门就是unsafe。unsafe为我们提供了硬件级别的原子操作
 
+//    compareAndSwapInt使用的汇编指令  --> cmpxchg1
+//    compareAndSwapLong使用的汇编指令  --> cmpxchg
+//    putOrderedInt使用的汇编指令 --> xchg1
+
 //    valueOffset对象，是通过unsafe.objectFileOffset方法得到的，所代表的是AtomicInteger对象value成员变量在内存中的偏移量。可以简单的理解为内存地址、
 
 //    ABA问题
