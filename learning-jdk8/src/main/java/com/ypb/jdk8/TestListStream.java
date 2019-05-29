@@ -1,12 +1,15 @@
 package com.ypb.jdk8;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.ypb.jdk8.mode.Person;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class TestListStream {
@@ -34,6 +37,19 @@ public class TestListStream {
 
 	public static void main(String[] args) {
 		testMax();
+	}
+
+	public void test(){
+		Map<Integer, String> map = Maps.newHashMap();
+		for (int i = 0; i < 10; i++) {
+			map.putIfAbsent(i, "val" + i);
+		}
+
+		map.forEach((key, value) -> {
+			String msg = "key " + key + ", value " + value;
+			System.out.println(msg);
+		});
+
 	}
 
 	private static void testMax() {
