@@ -1,4 +1,4 @@
-package com.ypb.timer;
+package com.ypb.timer.v1;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Queues;

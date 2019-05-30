@@ -1,4 +1,4 @@
-package com.ypb.timer;
+package com.ypb.timer.v1;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

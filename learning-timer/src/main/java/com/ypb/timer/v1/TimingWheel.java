@@ -1,4 +1,4 @@
-package com.ypb.timer;
+package com.ypb.timer.v1;
 
 import java.util.concurrent.DelayQueue;
 import lombok.extern.slf4j.Slf4j;

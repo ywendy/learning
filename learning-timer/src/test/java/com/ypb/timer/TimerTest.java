@@ -1,5 +1,7 @@
 package com.ypb.timer;
 
+import com.ypb.timer.v1.TimedTask;
+import com.ypb.timer.v1.Timer;
 import org.junit.Test;
 
 public class TimerTest {
