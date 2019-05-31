@@ -15,9 +15,9 @@ public class SystemTimerTest {
 
 		Stopwatch stopwatch = Stopwatch.createStarted();
 
-		int times = 1000000;
+		int times = 100;
 		for (int i = 0; i < times; i++) {
-			timer.add(new TimerTask(random.nextInt(10000)));
+			timer.add(new DelayedOperation(random.nextInt(100000)));
 		}
 
 		while (timer.size() > BigDecimal.ZERO.intValue()) {

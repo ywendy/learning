@@ -8,15 +8,18 @@ public class TimerTask implements Runnable {
 
 	@Getter
 	@Setter
-	private Long delayMs;
+	private int delayMs;
 	@Getter
 	private TimerTaskEntity timerTaskEntity;
 
 	public TimerTask() {
-		this(3000L);
+		this(3000);
 	}
 
-	public TimerTask(long delayMs) {
+	public TimerTask(int delayMs) {
+		if (delayMs < 0L) {
+			throw new IllegalArgumentException("delayMs must greater than zero");
+		}
 		this.delayMs = delayMs;
 	}
 
