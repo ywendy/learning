@@ -7,7 +7,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
-
+/**
+ * @ClassName: TimerTaskList
+ * @Description: 双向链表
+ * @author yangpengbing
+ * @date 2019-05-31-10:13
+ * @version V1.0.0
+ *
+ */
 public class TimerTaskList implements Delayed {
 
 	private AtomicInteger taskCounter;
