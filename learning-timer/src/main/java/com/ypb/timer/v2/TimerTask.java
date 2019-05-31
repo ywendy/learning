@@ -28,7 +28,7 @@ public class TimerTask implements Runnable {
 	 * we will remove such an entry first.
 	 * @param entity
 	 */
-	public synchronized void setTimerTaskEntity(TimerTaskEntity entity) {
+	protected synchronized void setTimerTaskEntity(TimerTaskEntity entity) {
 		if (Objects.nonNull(timerTaskEntity) && timerTaskEntity != entity) {
 			timerTaskEntity.remove();
 		}

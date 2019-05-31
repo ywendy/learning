@@ -13,11 +13,33 @@ public class SystemTimerTest {
 		long timeoutMs = 200L;
 		SystemTimer timer = new SystemTimer(timeoutMs);
 
+		test1(timer);
+
+//		test2(timeoutMs, timer);
+	}
+
+	private static void test1(SystemTimer timer) throws InterruptedException {
+		TimerTask task = new TimerTask(20000);
+		timer.add(task);
+
+		TimeUnit.MILLISECONDS.sleep(10000);
+
+		timer.cancel(task);
+
+		while (timer.size() > BigDecimal.ZERO.intValue()) {
+			System.out.println("timer.size() = " + timer.size());
+			TimeUnit.MILLISECONDS.sleep(200);
+		}
+
+		timer.shutdown();
+	}
+
+	private static void test2(long timeoutMs, SystemTimer timer) throws InterruptedException {
 		Stopwatch stopwatch = Stopwatch.createStarted();
 
-		int times = 100;
+		int times = 10000 * 10000;
 		for (int i = 0; i < times; i++) {
-			timer.add(new DelayedOperation(random.nextInt(100000)));
+			timer.add(new TimerTask(random.nextInt(100000)));
 		}
 
 		while (timer.size() > BigDecimal.ZERO.intValue()) {

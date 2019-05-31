@@ -10,6 +10,12 @@ public interface Timer {
 	void add(TimerTask timerTask);
 
 	/**
+	 * cancel a task to thi executor, it will be cancel before the task's delay
+	 * @param timerTask
+	 */
+	void cancel(TimerTask timerTask);
+
+	/**
 	 * get the number of tasks pending execution
 	 * @return the number of tasks
 	 */

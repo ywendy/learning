@@ -68,6 +68,20 @@ public class SystemTimer implements Timer, Function<TimerTaskEntity, Void> {
 		}
 	}
 
+	@Override
+	public void cancel(TimerTask timerTask) {
+		readLock.lock();
+		try {
+			if (Objects.isNull(timerTask)) {
+				return;
+			}
+			timerTask.setTimerTaskEntity(null);
+		}finally {
+			readLock.unlock();
+		}
+
+	}
+
 	private void addTimerTaskEntity(TimerTaskEntity entity) {
 		// already expired or cancelled
 		if (!timingWheel.add(entity) && !entity.cancelled()) {
@@ -126,6 +140,8 @@ public class SystemTimer implements Timer, Function<TimerTaskEntity, Void> {
 	 */
 	@Override
 	public Void apply(TimerTaskEntity entity) {
+		log.info("task counter size {}", size());
+
 		addTimerTaskEntity(entity);
 		return null;
 	}
