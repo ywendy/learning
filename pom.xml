@@ -22,6 +22,7 @@
     <module>learning-cache</module>
     <module>learning-interview</module>
     <module>learning-easyexcel</module>
+    <module>learning-canal</module>
   </modules>
 
   <parent>
@@ -60,6 +61,19 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.quartz-scheduler</groupId>
+      <artifactId>quartz</artifactId>
+      <version>2.2.1</version>
     </dependency>
   </dependencies>
 
@@ -198,6 +212,29 @@
         <version>1.21</version>
       </dependency>
       <!--jmh end-->
+      <!--mysql start-->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.46</version>
+      </dependency>
+      <!--druid start-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid-spring-boot-starter</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>1.1.6</version>
+      </dependency>
+      <!--fast json start -->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>1.2.51</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
