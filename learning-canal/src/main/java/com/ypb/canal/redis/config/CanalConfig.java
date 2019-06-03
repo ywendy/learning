@@ -2,10 +2,7 @@ package com.ypb.canal.redis.config;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
-import com.google.common.collect.Lists;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.util.List;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -31,13 +28,10 @@ public class CanalConfig {
 	private String username;
 	private String password;
 	private String subscribe;
-	private int batchSize;
 
 	@Bean
 	public CanalConnector canalConnector() {
-		List<SocketAddress> addresses = Lists.newArrayList(initSocketAddress(host, port));
-
-		CanalConnector connector = CanalConnectors.newClusterConnector(addresses, destination, username, password);
+		CanalConnector connector = CanalConnectors.newSingleConnector(initSocketAddress(host, port), destination, username, password);
 		connector.connect();
 		// 指定需要订阅的数据库和表
 		connector.subscribe(subscribe);
@@ -46,7 +40,7 @@ public class CanalConfig {
 		return connector;
 	}
 
-	private SocketAddress initSocketAddress(String host, int port) {
+	private InetSocketAddress initSocketAddress(String host, int port) {
 		return new InetSocketAddress(host, port);
 	}
 }

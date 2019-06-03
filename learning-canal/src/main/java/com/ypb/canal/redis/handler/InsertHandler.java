@@ -4,6 +4,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry.Column;
 import com.alibaba.otter.canal.protocol.CanalEntry.EventType;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowChange;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
+import com.ypb.canal.redis.HandlerType;
 import com.ypb.canal.redis.service.RedisService;
 import java.util.List;
 import java.util.Map;
@@ -18,16 +19,8 @@ import org.springframework.stereotype.Component;
  * @date 2019-05-31-16:47
  */
 @Component
+@HandlerType(EventType.INSERT)
 public class InsertHandler extends AbstractHandler {
-
-	public InsertHandler() {
-		this.eventType = EventType.INSERT;
-	}
-
-	@Autowired
-	private void setNextHandler(DeleteHandler deleteHandler) {
-		this.nextHandler = deleteHandler;
-	}
 
 	@Autowired
 	private RedisService redisService;
@@ -42,7 +35,7 @@ public class InsertHandler extends AbstractHandler {
 		List<Column> columns = rowData.getAfterColumnsList();
 		Map<String, String> map = columnsToMap(columns);
 
-		String scId = map.get("sc_id");
+		String scId = map.get("c_id");
 		String key = database + ":" + tableName + ":" + scId;
 
 		redisService.hmset(key, map);

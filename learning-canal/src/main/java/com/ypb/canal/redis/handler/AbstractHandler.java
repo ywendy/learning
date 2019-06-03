@@ -27,31 +27,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractHandler {
 
 	/**
-	 * 下一个执行者
-	 */
-	protected AbstractHandler nextHandler;
-	/**
-	 * 实际类型
-	 */
-	protected EventType eventType;
-
-	/**
 	 * 处理传递的事件
 	 * @param entry
 	 */
 	public void handlerMessage(Entry entry){
 		Header header = entry.getHeader();
-		if (eventType == header.getEventType()) {
-			// 发生操作的数据库名
-			String database = header.getSchemaName();
-			String tableName = header.getTableName();
+		// 发生操作的数据库名
+		String database = header.getSchemaName();
+		String tableName = header.getTableName();
 
-			log.info("listen database {}, table {}, eventType {}", database, tableName, eventType);
+		log.info("listen database {}, table {}, eventType {}", database, tableName, entry.getEntryType());
 
-			Optional.ofNullable(getRowChange(entry)).ifPresent(rowChange -> handlerRowChange(database, tableName, rowChange));
-		} else if (Objects.nonNull(nextHandler)) {
-			nextHandler.handlerMessage(entry);
-		}
+		Optional.ofNullable(getRowChange(entry)).ifPresent(rowChange -> handlerRowChange(database, tableName, rowChange));
 	}
 
 	/**

@@ -14,4 +14,8 @@ public class RedisService {
 	public void hmset(String key, Map<String, String> map) {
 		redisTemplate.opsForHash().putAll(key, map);
 	}
+
+	public void del(String key) {
+		redisTemplate.delete(key);
+	}
 }

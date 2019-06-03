@@ -1,7 +1,23 @@
 spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.174.129:3306/book?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: admin123
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 15
+      max-wait: 30000
+      validation-query: SELECT 1
+      validation-query-timeout: 1
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+
   #Redis配置
   redis:
-    host: 192.168.7.242
+    host: 127.0.0.1
     port: 6379
     database: 0
     jedis:
@@ -22,11 +38,11 @@ canal:
   destination: example
   username:
   password:
-  subscribe: book\\..*
-  batchSize: 1000
+  subscribe: book\..*
+  batchSize: 10
 # subscribe 过滤规则
-# 1）  所有：.*   or  .*\\..*
-# 2）  "test"库下所有表： test\\..*
-# 3）  "test"下的以"sys"打头的表：test\\.sys.*
+# 1）  所有：.*   or  .*\..*
+# 2）  "test"库下所有表： test\..*
+# 3）  "test"下的以"sys"打头的表：test\.sys.*
 # 4）  "test"下的具体一张表：test.blog   blog表
-# 5）  多个规则组合使用：test\\..*,test.sys_user,test.sys_role (逗号分隔)
+# 5）  多个规则组合使用：test\..*,test.sys_user,test.sys_role (逗号分隔)
