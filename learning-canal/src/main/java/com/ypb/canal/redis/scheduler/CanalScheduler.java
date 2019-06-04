@@ -4,8 +4,8 @@ import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry.Entry;
 import com.alibaba.otter.canal.protocol.CanalEntry.EntryType;
 import com.alibaba.otter.canal.protocol.Message;
+import com.ypb.canal.redis.context.HandlerContext;
 import com.ypb.canal.redis.handler.AbstractHandler;
-import com.ypb.canal.redis.service.HandlerContext;
 import java.util.List;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +42,7 @@ public class CanalScheduler {
 	private void handlerMessage() {
 		Message message = canalConnector.getWithoutAck(batchSize);
 		long batchId  = message.getId();
+
 		log.info("batchId {}", batchId);
 
 		if (batchId == -1 || CollectionUtils.isEmpty(message.getEntries())) {
@@ -52,7 +53,6 @@ public class CanalScheduler {
 
 		try {
 			List<Entry> entries = message.getEntries();
-			System.out.println("entries.size() = " + entries.size());
 			entries.stream().filter(this::filter).forEach(this::handlerMessage);
 		} catch (Exception e) {
 			log.debug("batch fetch mysql sync error, batchId {} rollback", batchId);

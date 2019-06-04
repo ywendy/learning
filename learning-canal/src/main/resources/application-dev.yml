@@ -17,7 +17,7 @@ spring:
 
   #Redis配置
   redis:
-    host: 127.0.0.1
+    host: 192.168.7.242
     port: 6379
     database: 0
     jedis:
@@ -34,15 +34,19 @@ spring:
 # canal相关配置
 canal:
   host: 192.168.174.128
-  port: 11111
+  port: 2100
   destination: example
   username:
   password:
   subscribe: book\..*
-  batchSize: 10
+  batchSize: 1000
+  zkServers: 192.168.7.242:2181
 # subscribe 过滤规则
 # 1）  所有：.*   or  .*\..*
 # 2）  "test"库下所有表： test\..*
 # 3）  "test"下的以"sys"打头的表：test\.sys.*
 # 4）  "test"下的具体一张表：test.blog   blog表
 # 5）  多个规则组合使用：test\..*,test.sys_user,test.sys_role (逗号分隔)
+
+mybatis:
+  config-location: classpath:mybatis-config.xml

@@ -1,4 +1,4 @@
-package com.ypb.canal.redis.service;
+package com.ypb.canal.redis.context;
 
 import com.alibaba.otter.canal.protocol.CanalEntry.EventType;
 import com.ypb.canal.redis.handler.AbstractHandler;

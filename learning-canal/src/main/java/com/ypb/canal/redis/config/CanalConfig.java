@@ -28,10 +28,11 @@ public class CanalConfig {
 	private String username;
 	private String password;
 	private String subscribe;
+	private String zkServers;
 
 	@Bean
 	public CanalConnector canalConnector() {
-		CanalConnector connector = CanalConnectors.newSingleConnector(initSocketAddress(host, port), destination, username, password);
+		CanalConnector connector = CanalConnectors.newClusterConnector(zkServers, destination, username, password);
 		connector.connect();
 		// 指定需要订阅的数据库和表
 		connector.subscribe(subscribe);

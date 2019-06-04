@@ -11,7 +11,7 @@ public class RedisService {
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
 
-	public void hmset(String key, Map<String, String> map) {
+	public void hmset(String key, Map<String, Object> map) {
 		redisTemplate.opsForHash().putAll(key, map);
 	}
 

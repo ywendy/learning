@@ -20,7 +20,7 @@ public class ThreadPoolConfig {
 		taskExecutor.setCorePoolSize(coreSize);
 		taskExecutor.setMaxPoolSize(coreSize * 2 + 1);
 		taskExecutor.setKeepAliveSeconds(BigDecimal.ZERO.intValue());
-		taskExecutor.setQueueCapacity(1024);
+		taskExecutor.setQueueCapacity(Integer.MAX_VALUE);
 		taskExecutor.setThreadNamePrefix("canal-");
 		taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 

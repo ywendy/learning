@@ -53,6 +53,11 @@ public final class ClassScanner implements ResourceLoaderAware {
 		return classes;
 	}
 
+	public static Set<Class<?>> scanAllClass(String entryPackage) {
+		ClassScanner cs = new ClassScanner();
+		return cs.doScan(entryPackage);
+	}
+
 	private Set<Class<?>> doScan(String basePackage) {
 		Set<Class<?>> classes = Sets.newHashSet();
 
