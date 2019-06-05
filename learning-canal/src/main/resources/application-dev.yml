@@ -40,7 +40,7 @@ canal:
   password:
   subscribe: book\..*
   batchSize: 1000
-  zkServers: 192.168.7.242:2181
+  zkServers: 192.168.174.128:2181,192.168.174.128:2182,192.168.174.128:2183
 # subscribe 过滤规则
 # 1）  所有：.*   or  .*\..*
 # 2）  "test"库下所有表： test\..*

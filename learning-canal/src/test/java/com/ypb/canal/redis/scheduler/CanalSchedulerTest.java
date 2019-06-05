@@ -19,7 +19,7 @@ public class CanalSchedulerTest {
 		while (true) {
 			canalScheduler.fetch();
 
-			TimeUnit.SECONDS.sleep(2L);
+			TimeUnit.MILLISECONDS.sleep(100L);
 		}
 	}
 }

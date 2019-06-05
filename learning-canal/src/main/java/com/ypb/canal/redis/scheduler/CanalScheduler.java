@@ -7,10 +7,12 @@ import com.alibaba.otter.canal.protocol.Message;
 import com.ypb.canal.redis.context.HandlerContext;
 import com.ypb.canal.redis.handler.AbstractHandler;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -19,7 +21,7 @@ import org.springframework.util.CollectionUtils;
 @Component
 public class CanalScheduler {
 
-	@Resource
+	@Autowired
 	private CanalConnector canalConnector;
 	@Value("${canal.batchSize}")
 	private int batchSize;
@@ -29,37 +31,37 @@ public class CanalScheduler {
 	/**
 	 * 异步线程，200毫秒拉取一次数据
 	 */
-	@Async("canal")
-	@Scheduled(fixedDelay = 200)
+	@Scheduled(fixedDelay = 100)
 	public void fetch(){
-		try {
-			handlerMessage();
-		} catch (Exception e) {
-			log.debug(e.getMessage(), e);
-		}
+		handlerMessage();
 	}
 
 	private void handlerMessage() {
-		Message message = canalConnector.getWithoutAck(batchSize);
-		long batchId  = message.getId();
-
-		log.info("batchId {}", batchId);
-
-		if (batchId == -1 || CollectionUtils.isEmpty(message.getEntries())) {
-			canalConnector.ack(batchId);
-
-			return;
-		}
-
+		long batchId = 0L;
 		try {
+			Message message = canalConnector.getWithoutAck(batchSize);
+			batchId = message.getId();
+
+			log.info("batchId {}", batchId);
+
+			if (batchId == -1 || CollectionUtils.isEmpty(message.getEntries())) {
+				canalConnector.ack(batchId);
+
+				TimeUnit.MILLISECONDS.sleep(200);
+
+				return;
+			}
+
 			List<Entry> entries = message.getEntries();
 			entries.stream().filter(this::filter).forEach(this::handlerMessage);
+			canalConnector.ack(batchId);
+
 		} catch (Exception e) {
 			log.debug("batch fetch mysql sync error, batchId {} rollback", batchId);
-			canalConnector.rollback(batchId);
+			if (Objects.nonNull(canalConnector)) {
+				canalConnector.rollback(batchId);
+			}
 		}
-
-		canalConnector.ack(batchId);
 	}
 
 	private boolean filter(Entry entry) {
@@ -76,4 +78,5 @@ public class CanalScheduler {
 		AbstractHandler handler = handlerContext.getInstance(entry.getHeader().getEventType());
 		handler.handlerMessage(entry);
 	}
+
 }

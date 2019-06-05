@@ -3,11 +3,10 @@ package com.ypb.canal.redis.config;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import java.net.InetSocketAddress;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 /**
  * @ClassName: CanalConfig
  * @Description: 配置Canal
@@ -16,21 +15,26 @@ import org.springframework.stereotype.Component;
  * @version V1.0.0
  *
  */
-@Setter
-@Slf4j
-@Component
-@ConfigurationProperties("canal")
+@Configuration
 public class CanalConfig {
 
+	@Value("${canal.host}")
 	private String host;
+	@Value("${canal.port}")
 	private int port;
+	@Value("${canal.destination}")
 	private String destination;
+	@Value("${canal.username}")
 	private String username;
+	@Value("${canal.password}")
 	private String password;
+	@Value("${canal.subscribe}")
 	private String subscribe;
+	@Value("${canal.zkServers}")
 	private String zkServers;
 
 	@Bean
+	@Scope("prototype")
 	public CanalConnector canalConnector() {
 		CanalConnector connector = CanalConnectors.newClusterConnector(zkServers, destination, username, password);
 		connector.connect();
@@ -38,6 +42,7 @@ public class CanalConfig {
 		connector.subscribe(subscribe);
 		// 回滚到上次中断的位置
 		connector.rollback();
+
 		return connector;
 	}
 
