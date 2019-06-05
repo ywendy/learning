@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @ClassName: TimingWheel
- * @Description: 时间轮，可以推进时间和添加任务(https://www.jianshu.com/p/87240220097b)
+ * @Description: 时间轮，可以推进时间和添加任务(https://www.jianshu.com/p/87240220097b http://bigdata.51cto.com/art/201806/575502.htm)
  * @author yangpengbing
  * @date 2019-05-30-15:36
  * @version V1.0.0
