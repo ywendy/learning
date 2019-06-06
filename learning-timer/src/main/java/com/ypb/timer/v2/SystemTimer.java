@@ -93,14 +93,13 @@ public class SystemTimer implements Timer, Function<TimerTaskEntity, Void> {
 	 * advance the internal clock, executing any tasks whose expiration has been reached within the duration of the
 	 * passed timeout
 	 *
-	 * @return whether or not any tasks were executed
 	 */
-	private Boolean advanceClock(long timeoutMs){
+	private void advanceClock(long timeoutMs){
 		try {
 			TimerTaskList bucket = delayQueue.poll(timeoutMs, TimeUnit.MILLISECONDS);
 
 			if (Objects.isNull(bucket)) {
-				return Boolean.FALSE;
+				return;
 			}
 
 			writeLock.lock();
@@ -114,12 +113,10 @@ public class SystemTimer implements Timer, Function<TimerTaskEntity, Void> {
 				writeLock.unlock();
 			}
 
-			return Boolean.TRUE;
 		} catch (InterruptedException e) {
 			log.debug(e.getMessage(), e);
 		}
 
-		return Boolean.FALSE;
 	}
 
 	@Override
@@ -153,7 +150,7 @@ public class SystemTimer implements Timer, Function<TimerTaskEntity, Void> {
 
 		private volatile boolean stop = false;
 
-		public AdvanceThread() {
+		AdvanceThread() {
 			super("advanceThread");
 		}
 
@@ -164,7 +161,7 @@ public class SystemTimer implements Timer, Function<TimerTaskEntity, Void> {
 			}
 		}
 
-		public void stopThread() {
+		void stopThread() {
 			stop = Boolean.TRUE;
 		}
 	}
