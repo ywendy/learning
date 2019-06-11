@@ -21,10 +21,10 @@ public class TimerTaskEntity implements Comparable<TimerTaskEntity> {
 	@Getter
 	private TimerTask timerTask;
 
-	public TimerTaskEntity next;
-	public TimerTaskEntity prev;
+	TimerTaskEntity next;
+	TimerTaskEntity prev;
 
-	public TimerTaskEntity(TimerTask timerTask, Long expirationMs) {
+	TimerTaskEntity(TimerTask timerTask, Long expirationMs) {
 		if (Objects.nonNull(timerTask)) {
 			timerTask.setTimerTaskEntity(this);
 		}
@@ -32,7 +32,7 @@ public class TimerTaskEntity implements Comparable<TimerTaskEntity> {
 		this.expirationMs = expirationMs;
 	}
 
-	public boolean cancelled() {
+	boolean cancelled() {
 		return timerTask.getTimerTaskEntity() != this;
 	}
 
@@ -41,7 +41,7 @@ public class TimerTaskEntity implements Comparable<TimerTaskEntity> {
 	 * this may fail to remove the entry due to the change of value of list. thus we retry until the list becomes null.
 	 * in a rare case. this thread sees null and exits the loop. but the other thread insert the entry to another list later.
 	 */
-	public void remove() {
+	void remove() {
 		TimerTaskList currentList = this.list;
 		while (Objects.nonNull(currentList)) {
 			currentList.remove(this);

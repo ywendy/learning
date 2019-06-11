@@ -16,7 +16,7 @@ public class TimerTask implements Runnable {
 		this(3000);
 	}
 
-	public TimerTask(int delayMs) {
+	TimerTask(int delayMs) {
 		if (delayMs < 0L) {
 			throw new IllegalArgumentException("delayMs must greater than zero");
 		}
@@ -28,7 +28,7 @@ public class TimerTask implements Runnable {
 	 * we will remove such an entry first.
 	 * @param entity
 	 */
-	protected synchronized void setTimerTaskEntity(TimerTaskEntity entity) {
+	synchronized void setTimerTaskEntity(TimerTaskEntity entity) {
 		if (Objects.nonNull(timerTaskEntity) && timerTaskEntity != entity) {
 			timerTaskEntity.remove();
 		}

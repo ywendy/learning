@@ -44,8 +44,8 @@ public class TimingWheel {
 	 * 表示TimerTaskList的数组，即各个槽
 	 */
 	private TimerTaskList[] buckets;
-	public TimingWheel(Long tickMs, Integer wheelSize, Long startMs, AtomicInteger taskCounter,
-			DelayQueue<TimerTaskList> queue) {
+
+	public TimingWheel(Long tickMs, Integer wheelSize, Long startMs, AtomicInteger taskCounter, DelayQueue<TimerTaskList> queue) {
 
 		this.tickMs = tickMs;
 		this.wheelSize = wheelSize;
@@ -99,16 +99,18 @@ public class TimingWheel {
 	 * add overflow timingWheel
 	 */
 	private synchronized void addOverflowWheel() {
-		if (Objects.isNull(overflowWheel)) {
-			overflowWheel = new TimingWheel(interVal, wheelSize, currentTime, taskCounter, queue);
+		if (Objects.nonNull(overflowWheel)) {
+			return;
 		}
+
+		overflowWheel = new TimingWheel(interVal, wheelSize, currentTime, taskCounter, queue);
 	}
 
 	/**
 	 * try to advance the clock
 	 * @param expirationMs
 	 */
-	public void advanceClock(Long expirationMs) {
+	void advanceClock(Long expirationMs) {
 		if (expirationMs < Math.addExact(currentTime, tickMs)) {
 			return;
 		}

@@ -27,7 +27,7 @@ public class TimerTaskList implements Delayed {
 	 * root.prev points to the tail
 	 * @param taskCounter
 	 */
-	public TimerTaskList(AtomicInteger taskCounter) {
+	TimerTaskList(AtomicInteger taskCounter) {
 		this.taskCounter = taskCounter;
 		this.root = new TimerTaskEntity(null, -1L);
 		this.root.next = root;
@@ -40,15 +40,15 @@ public class TimerTaskList implements Delayed {
 	 * @param expirationMs
 	 * @return true expiration time changed
 	 */
-	public boolean setExpiration(Long expirationMs) {
+	boolean setExpiration(Long expirationMs) {
 		return expiration.getAndSet(expirationMs) != expirationMs;
 	}
 
-	public Long getExpiration() {
+	Long getExpiration() {
 		return expiration.get();
 	}
 
-	public synchronized void flush(Function<TimerTaskEntity, Void> f) {
+	synchronized void flush(Function<TimerTaskEntity, Void> f) {
 		TimerTaskEntity head = root.next;
 		while (head != root) {
 			remove(head);
@@ -63,7 +63,7 @@ public class TimerTaskList implements Delayed {
 	 * remove the specified timer task entry from this list
 	 * @param entity
 	 */
-	public synchronized void remove(TimerTaskEntity entity) {
+	synchronized void remove(TimerTaskEntity entity) {
 		synchronized (entity) {
 			if (entity.getList() == this) {
 				entity.next.prev = entity.prev;
@@ -83,7 +83,7 @@ public class TimerTaskList implements Delayed {
 	 * add a timer task entity to this list
 	 * @param entity
 	 */
-	public void add(TimerTaskEntity entity) {
+	void add(TimerTaskEntity entity) {
 		boolean done = Boolean.FALSE;
 		while (!done) {
 			// remove the timer task entity if it is already in any other list
@@ -112,8 +112,8 @@ public class TimerTaskList implements Delayed {
 
 	@Override
 	public long getDelay(TimeUnit unit) {
-		return unit.convert(Long.max(getExpiration() - Time.getHiresClockMs(), BigDecimal.ZERO.longValue()),
-				TimeUnit.MILLISECONDS);
+		long max = Long.max(getExpiration() - Time.getHiresClockMs(), BigDecimal.ZERO.longValue());
+		return unit.convert(max, TimeUnit.MILLISECONDS);
 	}
 
 	@Override
