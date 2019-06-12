@@ -4,6 +4,7 @@ package com.ypb.jdk8;
 // 学习jdk8
 // https://github.com/winterbe/java8-tutorial
 // https://www.jianshu.com/p/a9ad46f86fb4
+// https://www.jianshu.com/p/afe6f60d492a
 
 // Java8 Collectors 收集器静态方法
 // 主要方法：
