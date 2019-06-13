@@ -29,6 +29,8 @@ import org.springframework.util.Assert;
 @Component
 public class RepeatSubmitAspect {
 
+	private static final String token_name = "token";
+
 	@Autowired
 	private RedisLock redisLock;
 
@@ -46,7 +48,7 @@ public class RepeatSubmitAspect {
 		HttpServletRequest request = RequestUtils.getRequest();
 		Assert.notNull(request, "request can not null.");
 
-		String key  = getKey(request.getHeader("token"), request.getServletPath());
+		String key = getKey(request.getHeader(token_name), request.getServletPath());
 		String clientIp = getClientId();
 
 		boolean success = redisLock.tryLock(key, clientIp, lockTime);
