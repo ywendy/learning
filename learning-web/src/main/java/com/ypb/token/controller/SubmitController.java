@@ -43,6 +43,6 @@ public class SubmitController {
 		bound = random.nextInt(bound) + 1;
 
 		log.info("sleep {}", bound);
-		TimeUnit.SECONDS.sleep(random.nextInt(bound));
+		TimeUnit.SECONDS.sleep(bound);
 	}
 }
