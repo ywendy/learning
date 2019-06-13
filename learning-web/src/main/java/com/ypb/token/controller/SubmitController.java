@@ -1,6 +1,6 @@
 package com.ypb.token.controller;
 
-import com.ypb.token.aop.NoRepeatSubmit;
+import com.ypb.token.annoation.NoRepeatSubmit;
 import com.ypb.token.entry.ApiResult;
 import com.ypb.token.entry.UserEntry;
 import java.util.Random;

@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
 /**
  * @ClassName: RepeatSubmitApplication
  * @Description: AOP的方式实现防重复提交
@@ -15,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 @SpringBootApplication
-public class RepeatSubmitApplication {
+public class RepeatSubmitApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RepeatSubmitApplication.class, args);

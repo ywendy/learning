@@ -1,4 +1,4 @@
-package com.ypb.token.aop;
+package com.ypb.token.annoation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
