@@ -1,18 +1,14 @@
 package com.ypb.idempotent.interceptor;
 
-import com.google.common.util.concurrent.RateLimiter;
 import com.ypb.idempotent.annoation.AccessLimit;
 import com.ypb.idempotent.common.RedisService;
 import com.ypb.idempotent.exception.ServiceException;
-import com.ypb.idempotent.utils.WebUtils;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
  * @ClassName: AccessLimitInterceptor
@@ -23,27 +19,20 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  *
  */
 @Slf4j
-public class AccessLimitInterceptor extends HandlerInterceptorAdapter {
+public class AccessLimitInterceptor extends AbstractAccessLimitInterceptor {
 
 	@Autowired
 	private RedisService redisService;
-	private AtomicInteger ai = new AtomicInteger();
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		if (!(handler instanceof HandlerMethod)) {
-			return Boolean.TRUE;
+	void check(String key, AccessLimit limit) {
+		int maxCount = limit.maxCount();
+
+		Integer count = Integer.valueOf(redisService.get(key));
+
+		if (count >= maxCount) {
+			throw new ServiceException("access times over maxCount");
 		}
-
-		HandlerMethod hm = (HandlerMethod) handler;
-		AccessLimit limit = hm.getMethod().getAnnotation(AccessLimit.class);
-
-		if (Objects.nonNull(limit)) {
-			check(limit, request);
-		}
-
-		return Boolean.TRUE;
 	}
 
 	@Override
@@ -65,34 +54,5 @@ public class AccessLimitInterceptor extends HandlerInterceptorAdapter {
 
 		redisService.incr(key);
 		redisService.pExpire(key, limit.unit().toMillis(limit.times()));
-	}
-
-	private void check(AccessLimit limit) {
-		RateLimiter limiter = RateLimiter.create(limit.maxCount(), limit.times(), limit.unit());
-
-		if (!limiter.tryAcquire()) {
-			throw new ServiceException("access times over maxCount");
-		}
-	}
-
-	private void check(AccessLimit limit, HttpServletRequest request) {
-
-		int maxCount = limit.maxCount();
-		String key = initKey(request);
-
-		Integer count = Integer.valueOf(redisService.get(key));
-
-		if (count >= maxCount) {
-			throw new ServiceException("access times over maxCount");
-		}
-	}
-
-	private String initKey(HttpServletRequest request) {
-		String ip = WebUtils.getIpAddress(request);
-
-		StringBuilder builder = new StringBuilder();
-		builder.append("access:limit:").append(ip).append(":").append(request.getRequestURI());
-
-		return builder.toString();
 	}
 }

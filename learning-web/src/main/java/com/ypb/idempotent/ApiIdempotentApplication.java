@@ -1,12 +1,18 @@
 package com.ypb.idempotent;
 
 import com.ypb.idempotent.interceptor.AccessLimitInterceptor;
+import com.ypb.idempotent.interceptor.AccessLimitWithLuaScriptInterceptor;
+import com.ypb.idempotent.interceptor.AccessLimitWithRateLimiterInterceptor;
 import com.ypb.idempotent.interceptor.ApiIdempotentInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.scripting.support.ResourceScriptSource;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -53,9 +59,18 @@ public class ApiIdempotentApplication extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(apiIdempotentInterceptor());
-		registry.addInterceptor(accessLimitInterceptor());
+		registry.addInterceptor(accessLimitWithRateLimiterInterceptor());
 
 		super.addInterceptors(registry);
+	}
+
+	@Bean
+	public RedisScript redisScript() {
+		DefaultRedisScript<Integer> script = new DefaultRedisScript<>();
+		script.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/access_limit.lua")));
+		script.setResultType(Integer.class);
+
+		return script;
 	}
 
 	@Bean
@@ -66,5 +81,15 @@ public class ApiIdempotentApplication extends WebMvcConfigurerAdapter {
 	@Bean
 	public AccessLimitInterceptor accessLimitInterceptor() {
 		return new AccessLimitInterceptor();
+	}
+
+	@Bean
+	public AccessLimitWithLuaScriptInterceptor accessLimitWithLuaScriptInterceptor() {
+		return new AccessLimitWithLuaScriptInterceptor();
+	}
+
+	@Bean
+	public AccessLimitWithRateLimiterInterceptor accessLimitWithRateLimiterInterceptor() {
+		return new AccessLimitWithRateLimiterInterceptor();
 	}
 }

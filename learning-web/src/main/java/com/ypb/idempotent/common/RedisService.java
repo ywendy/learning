@@ -1,5 +1,8 @@
 package com.ypb.idempotent.common;
 
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Optional;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ArrayUtils;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStringCommands.SetOption;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.stereotype.Component;
 import redis.clients.util.SafeEncoder;
@@ -18,6 +22,8 @@ public class RedisService {
 
 	@Autowired
 	private StringRedisTemplate redisTemplate;
+	@Autowired
+	private RedisScript redisScript;
 
 	public void set(String key, String value, Integer time) {
 		@Cleanup
@@ -77,5 +83,13 @@ public class RedisService {
 		@Cleanup
 		RedisConnection conn = redisTemplate.getConnectionFactory().getConnection();
 		conn.pExpire(SafeEncoder.encode(key), millis);
+	}
+
+	public Long acquire(String key, Integer maxCount, Long millisecond) {
+		return (Long) redisTemplate.execute(redisScript, Collections.singletonList(key), parseToString(maxCount), parseToString(millisecond));
+	}
+
+	private <T> String parseToString(T t) {
+		return Optional.ofNullable(t).map(Objects::toString).orElse(StringUtils.EMPTY);
 	}
 }
