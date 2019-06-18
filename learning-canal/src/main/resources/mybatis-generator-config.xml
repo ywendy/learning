@@ -25,7 +25,7 @@
 
         <!-- jdbc连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.174.129:3306/book?useUnicode=true&amp;characterEncoding=utf8"
+                        connectionURL="jdbc:mysql://192.168.7.218:3306/ypb?useUnicode=true&amp;characterEncoding=utf8"
                         userId="root" password="admin123"/>
 
         <!-- 类型转换 -->
@@ -59,18 +59,10 @@
         </javaClientGenerator>
 
         <!-- 配置表信息 -->
-        <table tableName="course" domainObjectName="CourseEntry" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="tbl_crm_trans_detail" domainObjectName="TransDetailEntry" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
           <!--如果设置为true，生成的model类会直接使用column本身的名字，而不会再使用驼峰命名方法-->
-            <property name="useActualColumnNames" value="false"/>
-        </table>
-        <table tableName="student" domainObjectName="StudentEntry" enableCountByExample="false" enableUpdateByExample="false"
-          enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-          <property name="useActualColumnNames" value="false"/>
-        </table>
-        <table tableName="sc" domainObjectName="ScoreEntry" enableCountByExample="false" enableUpdateByExample="false"
-          enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-          <property name="useActualColumnNames" value="false"/>
+            <property name="useActualColumnNames" value="true"/>
         </table>
 
     </context>

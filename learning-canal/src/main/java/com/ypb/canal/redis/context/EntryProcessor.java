@@ -14,7 +14,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-@Component
+//@Component
 public class EntryProcessor implements BeanFactoryPostProcessor {
 
 	private static final String ENTRY_PACKAGE = "com.ypb.canal.redis.entry";

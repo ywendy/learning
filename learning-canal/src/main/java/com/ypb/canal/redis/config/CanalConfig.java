@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Scope;
  * @version V1.0.0
  *
  */
-@Configuration
+//@Configuration
 public class CanalConfig {
 
 	@Value("${canal.host}")

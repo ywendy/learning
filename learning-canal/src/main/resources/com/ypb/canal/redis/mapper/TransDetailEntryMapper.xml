@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ypb.canal.redis.mapper.TransDetailEntryMapper">
+  <resultMap id="BaseResultMap" type="com.ypb.canal.redis.entry.TransDetailEntry">
+    <id column="transID" jdbcType="BIGINT" property="transID" />
+    <result column="linkTransID" jdbcType="BIGINT" property="linkTransID" />
+    <result column="groupID" jdbcType="BIGINT" property="groupID" />
+    <result column="cardID" jdbcType="BIGINT" property="cardID" />
+    <result column="transType" jdbcType="TINYINT" property="transType" />
+    <result column="saveMoneyAmount" jdbcType="DECIMAL" property="saveMoneyAmount" />
+    <result column="saveReturnMoneyAmount" jdbcType="DECIMAL" property="saveReturnMoneyAmount" />
+    <result column="deductionMoneyAmount" jdbcType="DECIMAL" property="deductionMoneyAmount" />
+    <result column="giveBalancePay" jdbcType="DECIMAL" property="giveBalancePay" />
+    <result column="transAfterMoneyBalance" jdbcType="DECIMAL" property="transAfterMoneyBalance" />
+    <result column="newTransAfterMoneyBalance" jdbcType="DECIMAL" property="newTransAfterMoneyBalance" />
+    <result column="transAfterPointBalance" jdbcType="DECIMAL" property="transAfterPointBalance" />
+    <result column="newTransAfterPointBalance" jdbcType="DECIMAL" property="newTransAfterPointBalance" />
+    <result column="transAfterGiveBalance" jdbcType="DECIMAL" property="transAfterGiveBalance" />
+    <result column="newTransAfterGiveBalance" jdbcType="DECIMAL" property="newTransAfterGiveBalance" />
+    <result column="transReceiptsTxt" jdbcType="VARCHAR" property="transReceiptsTxt" />
+    <result column="cancelStatus" jdbcType="BIT" property="cancelStatus" />
+    <result column="action" jdbcType="INTEGER" property="action" />
+    <result column="createStamp" jdbcType="TIMESTAMP" property="createStamp" />
+    <result column="actionStamp" jdbcType="TIMESTAMP" property="actionStamp" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    transID, linkTransID, groupID, cardID, transType, saveMoneyAmount, saveReturnMoneyAmount, 
+    deductionMoneyAmount, giveBalancePay, transAfterMoneyBalance, newTransAfterMoneyBalance, 
+    transAfterPointBalance, newTransAfterPointBalance, transAfterGiveBalance, newTransAfterGiveBalance, transReceiptsTxt,
+    cancelStatus, action, createStamp, actionStamp
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_crm_trans_detail
+    where transID = #{transID,jdbcType=BIGINT}
+  </select>
+  <select id="getTransDetailByCardID" resultType="com.ypb.canal.redis.entry.TransDetailEntry">
+    select groupID, transID, linkTransID, cardID, transAfterMoneyBalance, deductionMoneyAmount, transAfterGiveBalance, giveBalancePay, saveMoneyAmount, saveReturnMoneyAmount, createStamp,transType, transReceiptsTxt from tbl_crm_trans_detail WHERE groupID = #{groupID} and cardID = #{cardID} and transID = linkTransID and transType != 90 and cancelStatus = 0 ORDER BY createStamp asc;
+  </select>
+  <select id="getTransDetailByLinkedID" resultType="com.ypb.canal.redis.entry.TransDetailEntry">
+    select groupID, transID, linkTransID, cardID, transAfterMoneyBalance, deductionMoneyAmount, transAfterGiveBalance, giveBalancePay, saveMoneyAmount, saveReturnMoneyAmount, createStamp,transType, transReceiptsTxt from tbl_crm_trans_detail WHERE groupID = #{groupID} and linkTransID = #{linkTransID} and transID != linkTransID and transType != 90 and cancelStatus = 0 ORDER BY createStamp asc;
+  </select>
+  <select id="getTransDetails" resultType="com.ypb.canal.redis.entry.TransDetailEntry">
+    SELECT transID, groupID, cardID, transAfterMoneyBalance, newTransAfterMoneyBalance, transAfterGiveBalance, newTransAfterGiveBalance, transReceiptsTxt, transType FROM tbl_crm_trans_detail WHERE cardID in(
+    4173676 ,4735093 ,857195242825265152 ,859372082444726272 ,904902421300473856 ,915785687213637632 ,916140717175308288 ,6586832059354881256 ,6621373625331101488 ,6631722056956282051 ,6631826613438793620 ,6635542460732810258 ,6636936714323501671 ,6671812213788923796 ,6675891496517903295 ,6677740308626680322 ,6683022507819145130 ,6686393575950802032 ,6691930501768311424 ,6694422133025544911 ,6694935359664451070 ,6696379053110204308 ,6697010563332968682
+    ) AND (transAfterMoneyBalance != newTransAfterMoneyBalance OR transAfterGiveBalance != newTransAfterGiveBalance) AND createStamp >= '2019-06-17 09:20:20' AND '2019-06-17 20:20:20' >= createStamp ORDER BY createStamp asc;
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_crm_trans_detail
+    where transID = #{transID,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ypb.canal.redis.entry.TransDetailEntry">
+    insert into tbl_crm_trans_detail (transID, linkTransID, groupID, 
+      cardID, transType, saveMoneyAmount, 
+      saveReturnMoneyAmount, deductionMoneyAmount, 
+      giveBalancePay, transAfterMoneyBalance, 
+      newTransAfterMoneyBalance, transAfterPointBalance, 
+      newTransAfterPointBalance, transAfterGiveBalance,
+      transReceiptsTxt, cancelStatus, action, 
+      createStamp, actionStamp)
+    values (#{transID,jdbcType=BIGINT}, #{linkTransID,jdbcType=BIGINT}, #{groupID,jdbcType=BIGINT}, 
+      #{cardID,jdbcType=BIGINT}, #{transType,jdbcType=TINYINT}, #{saveMoneyAmount,jdbcType=DECIMAL}, 
+      #{saveReturnMoneyAmount,jdbcType=DECIMAL}, #{deductionMoneyAmount,jdbcType=DECIMAL}, 
+      #{giveBalancePay,jdbcType=DECIMAL}, #{transAfterMoneyBalance,jdbcType=DECIMAL}, 
+      #{newTransAfterMoneyBalance,jdbcType=DECIMAL}, #{transAfterPointBalance,jdbcType=DECIMAL}, 
+      #{newTransAfterPointBalance,jdbcType=DECIMAL}, #{transAfterGiveBalance,jdbcType=DECIMAL}, 
+      #{transReceiptsTxt,jdbcType=VARCHAR}, #{cancelStatus,jdbcType=BIT}, #{action,jdbcType=INTEGER}, 
+      #{createStamp,jdbcType=TIMESTAMP}, #{actionStamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ypb.canal.redis.entry.TransDetailEntry">
+    insert into tbl_crm_trans_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="transID != null">
+        transID,
+      </if>
+      <if test="linkTransID != null">
+        linkTransID,
+      </if>
+      <if test="groupID != null">
+        groupID,
+      </if>
+      <if test="cardID != null">
+        cardID,
+      </if>
+      <if test="transType != null">
+        transType,
+      </if>
+      <if test="saveMoneyAmount != null">
+        saveMoneyAmount,
+      </if>
+      <if test="saveReturnMoneyAmount != null">
+        saveReturnMoneyAmount,
+      </if>
+      <if test="deductionMoneyAmount != null">
+        deductionMoneyAmount,
+      </if>
+      <if test="giveBalancePay != null">
+        giveBalancePay,
+      </if>
+      <if test="transAfterMoneyBalance != null">
+        transAfterMoneyBalance,
+      </if>
+      <if test="newTransAfterMoneyBalance != null">
+        newTransAfterMoneyBalance,
+      </if>
+      <if test="transAfterPointBalance != null">
+        transAfterPointBalance,
+      </if>
+      <if test="newTransAfterPointBalance != null">
+        newTransAfterPointBalance,
+      </if>
+      <if test="transAfterGiveBalance != null">
+        transAfterGiveBalance,
+      </if>
+      <if test="transReceiptsTxt != null">
+        transReceiptsTxt,
+      </if>
+      <if test="cancelStatus != null">
+        cancelStatus,
+      </if>
+      <if test="action != null">
+        action,
+      </if>
+      <if test="createStamp != null">
+        createStamp,
+      </if>
+      <if test="actionStamp != null">
+        actionStamp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="transID != null">
+        #{transID,jdbcType=BIGINT},
+      </if>
+      <if test="linkTransID != null">
+        #{linkTransID,jdbcType=BIGINT},
+      </if>
+      <if test="groupID != null">
+        #{groupID,jdbcType=BIGINT},
+      </if>
+      <if test="cardID != null">
+        #{cardID,jdbcType=BIGINT},
+      </if>
+      <if test="transType != null">
+        #{transType,jdbcType=TINYINT},
+      </if>
+      <if test="saveMoneyAmount != null">
+        #{saveMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="saveReturnMoneyAmount != null">
+        #{saveReturnMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="deductionMoneyAmount != null">
+        #{deductionMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="giveBalancePay != null">
+        #{giveBalancePay,jdbcType=DECIMAL},
+      </if>
+      <if test="transAfterMoneyBalance != null">
+        #{transAfterMoneyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="newTransAfterMoneyBalance != null">
+        #{newTransAfterMoneyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="transAfterPointBalance != null">
+        #{transAfterPointBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="newTransAfterPointBalance != null">
+        #{newTransAfterPointBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="transAfterGiveBalance != null">
+        #{transAfterGiveBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="transReceiptsTxt != null">
+        #{transReceiptsTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelStatus != null">
+        #{cancelStatus,jdbcType=BIT},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=INTEGER},
+      </if>
+      <if test="createStamp != null">
+        #{createStamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actionStamp != null">
+        #{actionStamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ypb.canal.redis.entry.TransDetailEntry">
+    update tbl_crm_trans_detail
+    <set>
+      <if test="linkTransID != null">
+        linkTransID = #{linkTransID,jdbcType=BIGINT},
+      </if>
+      <if test="groupID != null">
+        groupID = #{groupID,jdbcType=BIGINT},
+      </if>
+      <if test="cardID != null">
+        cardID = #{cardID,jdbcType=BIGINT},
+      </if>
+      <if test="transType != null">
+        transType = #{transType,jdbcType=TINYINT},
+      </if>
+      <if test="saveMoneyAmount != null">
+        saveMoneyAmount = #{saveMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="saveReturnMoneyAmount != null">
+        saveReturnMoneyAmount = #{saveReturnMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="deductionMoneyAmount != null">
+        deductionMoneyAmount = #{deductionMoneyAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="giveBalancePay != null">
+        giveBalancePay = #{giveBalancePay,jdbcType=DECIMAL},
+      </if>
+      <if test="transAfterMoneyBalance != null">
+        transAfterMoneyBalance = #{transAfterMoneyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="newTransAfterMoneyBalance != null">
+        newTransAfterMoneyBalance = #{newTransAfterMoneyBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="transAfterPointBalance != null">
+        transAfterPointBalance = #{transAfterPointBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="newTransAfterPointBalance != null">
+        newTransAfterPointBalance = #{newTransAfterPointBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="transAfterGiveBalance != null">
+        transAfterGiveBalance = #{transAfterGiveBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="newTransAfterGiveBalance != null">
+        newTransAfterGiveBalance = #{newTransAfterGiveBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="transReceiptsTxt != null">
+        transReceiptsTxt = #{transReceiptsTxt,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelStatus != null">
+        cancelStatus = #{cancelStatus,jdbcType=BIT},
+      </if>
+      <if test="action != null">
+        action = #{action,jdbcType=INTEGER},
+      </if>
+      <if test="createStamp != null">
+        createStamp = #{createStamp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actionStamp != null">
+        actionStamp = #{actionStamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where transID = #{transID,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ypb.canal.redis.entry.TransDetailEntry">
+    update tbl_crm_trans_detail
+    set linkTransID = #{linkTransID,jdbcType=BIGINT},
+      groupID = #{groupID,jdbcType=BIGINT},
+      cardID = #{cardID,jdbcType=BIGINT},
+      transType = #{transType,jdbcType=TINYINT},
+      saveMoneyAmount = #{saveMoneyAmount,jdbcType=DECIMAL},
+      saveReturnMoneyAmount = #{saveReturnMoneyAmount,jdbcType=DECIMAL},
+      deductionMoneyAmount = #{deductionMoneyAmount,jdbcType=DECIMAL},
+      giveBalancePay = #{giveBalancePay,jdbcType=DECIMAL},
+      transAfterMoneyBalance = #{transAfterMoneyBalance,jdbcType=DECIMAL},
+      newTransAfterMoneyBalance = #{newTransAfterMoneyBalance,jdbcType=DECIMAL},
+      transAfterPointBalance = #{transAfterPointBalance,jdbcType=DECIMAL},
+      newTransAfterPointBalance = #{newTransAfterPointBalance,jdbcType=DECIMAL},
+      transAfterGiveBalance = #{transAfterGiveBalance,jdbcType=DECIMAL},
+      transReceiptsTxt = #{transReceiptsTxt,jdbcType=VARCHAR},
+      cancelStatus = #{cancelStatus,jdbcType=BIT},
+      action = #{action,jdbcType=INTEGER},
+      createStamp = #{createStamp,jdbcType=TIMESTAMP},
+      actionStamp = #{actionStamp,jdbcType=TIMESTAMP}
+    where transID = #{transID,jdbcType=BIGINT}
+  </update>
+</mapper>

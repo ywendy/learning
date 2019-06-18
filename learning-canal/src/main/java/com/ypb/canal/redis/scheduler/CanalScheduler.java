@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 @Slf4j
-@Component
+//@Component
 public class CanalScheduler {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class CanalScheduler {
 	/**
 	 * 异步线程，200毫秒拉取一次数据
 	 */
-	@Scheduled(fixedDelay = 100)
+//	@Scheduled(fixedDelay = 100)
 	public void fetch(){
 		handlerMessage();
 	}
